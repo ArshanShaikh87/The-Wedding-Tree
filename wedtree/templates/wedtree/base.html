@@ -1,0 +1,70 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}The Wedding Tree{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{% static 'wedtree/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'wedtree/css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'wedtree/css/about.css' %}">
+    <link rel="stylesheet" href="{% static 'wedtree/css/services.css' %}">
+    <link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}">
+    <link rel="stylesheet" href="{% static 'wedtree/css/contact.css' %}">
+    {% block extra_css %}{% endblock %}
+
+  
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+  <div class="container">
+    <div class="logo">
+      <a href="{% url 'home' %}">The <span>Wedding Tree</span></a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'about' %}">About</a></li>
+        <li><a href="{% url 'services' %}">Services</a></li>
+        <li><a href="{% url 'gallery' %}">Gallery</a></li>
+        <li><a href="{% url 'contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+    <!-- Page Content -->
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 The Wedding Tree. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <!-- JS -->
+    <script src="{% static 'wedtree/js/main.js' %}"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ duration: 1000, once: true });</script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

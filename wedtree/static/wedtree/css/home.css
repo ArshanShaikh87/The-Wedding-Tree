@@ -1,0 +1,303 @@
+.hero {
+  background: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 120px 20px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: var(--light-grey);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 30px;
+  background-color: var(--gold);
+  color: var(--black);
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--champagne);
+  transform: scale(1.05);
+}
+
+/* Simple fade animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ✅ Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+}
+
+
+/* 🌟 Highlights Section */
+.highlights {
+  background-color: var(--light-grey);
+  padding: 80px 0;
+  text-align: center;
+}
+
+ .container {
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.highlight {
+  background: var(--bg-white);
+  border: 1px solid var(--primary-gold);
+  border-radius: 16px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  padding: 40px 20px;
+  width: 300px;
+  transition: all 0.3s ease;
+}
+
+.highlight:hover {
+  background: var(--gold);
+  color: var(--white);
+  transform: translateY(-10px);
+}
+
+.highlight i {
+  font-size: 40px;
+  color: var(--primary-gold);
+  margin-bottom: 20px;
+  transition: color 0.3s ease;
+}
+
+.highlight:hover i {
+  color: var(--bg-white);
+}
+
+.highlight h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--text-dark);
+}
+
+.highlight p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--text-dark);
+}
+
+/* ================================
+   🎞️ Gallery Preview Section
+================================ */
+.gallery-preview {
+  text-align: center;
+  padding: 80px 20px;
+  background-color: var(--bg-white);
+}
+
+.gallery-preview h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2.2rem;
+  color: var(--gold);
+  margin-bottom: 50px;
+  font-weight: 600;
+  letter-spacing: 1px;
+} 
+ 
+
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 0 40px;
+  text-align: center;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  border: 2px solid var(--primary-gold);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+  
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+  filter: brightness(0.8);
+}
+
+.gallery-btn {
+  margin-top: 40px;
+}
+
+.gallery-btn .btn {
+  background-color: var(--champagne);
+  color: var(--white);
+  padding: 12px 30px;
+  border-radius: 30px;
+  transition: 0.3s ease;
+}
+
+.gallery-btn .btn:hover {
+  background-color: var(--gold);
+  color: var(--primary-gold);
+} 
+
+
+/* ===============================
+   🌸 Contact Section Styles
+================================ */
+.contact {
+  background-color: var(--light-grey);
+  padding: 80px 0;
+}
+
+.contact .section-title {
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--black);
+  margin-bottom: 10px;
+}
+
+.contact .section-subtitle {
+  text-align: center;
+  color: var(--champagne);
+  margin-bottom: 50px;
+}
+
+.contact-content {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 50px;
+  flex-wrap: wrap;
+}
+
+.contact-form {
+  flex: 1 1 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--champagne);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+.contact-form .btn {
+  background-color: var(--gold);
+  color: var(--white);
+  padding: 12px 25px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-form .btn:hover {
+  background-color: var(--black);
+  color: var(--gold);
+}
+
+.contact-info {
+  flex: 1 1 300px;
+  font-family: var(--font-body);
+  color: var(--black);
+}
+
+.contact-info a {
+  color: var(--black);
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.contact-info a:hover {
+  color: var(--gold);
+}
+
+.social-links {
+  margin-top: 20px;
+}
+
+.social-links a {
+  font-size: 1.5rem;
+  color: var(--gold);
+  margin-right: 15px;
+  transition: 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--black);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .contact-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .contact-form, .contact-info {
+    width: 100%;
+    max-width: 500px;
+  }
+}
+/* contact success message */
+.messages {
+  text-align: center;
+  margin: 15px auto;
+}
+
+.success-msg {
+  color: var(--gold);
+  font-weight: 600;
+  background: var(--light-grey);
+  padding: 10px 20px;
+  border-radius: 6px;
+  display: inline-block;
+}

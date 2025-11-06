@@ -1,0 +1,14 @@
+#header {
+    background-color: #D4AF37 !important; /* gold brand color */
+    color: #000 !important;
+}
+
+#branding h1 a {
+    background: url("/static/admin_custom/logo.png") no-repeat left center !important;
+    background-size: 160px !important;
+    color: transparent !important;
+}
+
+body, input, select, textarea {
+    font-family: 'Poppins', sans-serif !important;
+}

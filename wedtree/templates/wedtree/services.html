@@ -1,0 +1,34 @@
+{% extends 'wedtree/base.html' %}
+{% load static %}
+
+{% block title %}Our Services | The Wedding Tree{% endblock %}
+
+{% block meta %}
+<meta name="description" content="Discover The Wedding Tree's expert wedding planning and décor services — from luxurious wedding themes to elegant stage designs.">
+<meta name="keywords" content="wedding decor, wedding planning, mehendi decor, haldi decor, event management, wedding stage design, luxury wedding planner">
+{% endblock %}
+
+{% block content %}
+<section class="services-section">
+  <div class="container">
+    <h1 class="section-title" data-aos="fade-up">Our Expertise, Your Perfect Day</h1>
+    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
+      From grand wedding décor to celebrations — we design it all with perfection and love.
+    </p>
+
+    <div class="services-grid">
+      {% for service in services %}
+      <div class="service-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
+        <div class="service-img">
+          <img src="{{ service.image.url }}" alt="{{ service.name }}">
+        </div>
+        <div class="service-content">
+          <h3>{{ service.name }}</h3>
+          <p>{{ service.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

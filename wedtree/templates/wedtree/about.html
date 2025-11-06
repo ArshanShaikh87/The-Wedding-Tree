@@ -1,0 +1,81 @@
+{% extends 'wedtree/base.html' %}
+
+{% comment %} {% extends 'wedtree/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about" id="about">
+  <div class="about-container">
+    
+    <!-- Image Section -->
+    <div class="about-image">
+      <img src="{% static 'wedtree/images/gallery1.jpg' %}" alt="The Wedding Tree Team">
+      <div class="image-overlay">
+        <h3>Crafting Timeless Weddings</h3>
+      </div>
+    </div>
+
+    <!-- Content Section -->
+    <div class="about-content">
+      <h2>About <span>The Wedding Tree</span></h2>
+      <p class="intro">
+        The Wedding Tree is where dreams meet design — a space where love stories are celebrated through elegant, thoughtful, and soulful weddings.
+      </p>
+      <p>
+        Founded with passion and purpose, we bring together creative minds and expert planners who specialize in making every moment unforgettable. 
+        From destination weddings to intimate gatherings, we tailor every event to reflect your story, your style, and your spirit.
+      </p>
+      <blockquote>
+        “We don’t just plan weddings — we create emotions, experiences, and everlasting memories.”
+      </blockquote>
+      <p>
+        Our dedicated team ensures that every flower, every light, and every smile aligns perfectly to craft your once-in-a-lifetime celebration.
+      </p>
+      <a href="{% url 'contact' %}" class="btn">Plan Your Wedding With Us</a>
+    </div>
+  </div>
+</section>
+{% endblock %} {% endcomment %}
+
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+<section class="about" id="about">
+  <div class="about-container">
+    
+    <div class="about-image">
+      {% if about.image %}
+      <img src="{{ about.image.url }}" alt="{{ about.title }}">
+      {% else %}
+      <img src="{% static 'wedtree/images/gallery.jpg' %}" alt="The Wedding Tree">
+      {% endif %}
+      <div class="image-overlay">
+        <h3>{{ about.subtitle|default:"Creating Timeless Memories" }}</h3>
+      </div>
+    </div>
+
+    <div class="about-content">
+      <h2>{{ about.title|default:"About The Wedding Tree" }}</h2>
+      <p class="intro">{{ about.description1|default:"We design, plan, and manage elegant weddings with love and precision." }}</p>
+
+      {% if about.description2 %}
+      <p>{{ about.description2 }}</p>
+      {% endif %}
+
+      {% if about.quote %}
+      <blockquote>“{{ about.quote }}”</blockquote>
+      {% else %}
+      <blockquote>“Turning dreams into timeless celebrations.”</blockquote>
+      {% endif %}
+
+      <a href="{% url 'contact' %}" class="btn">Plan Your Wedding With Us</a>
+    </div>
+  </div>
+</section>
+{% endblock %}
