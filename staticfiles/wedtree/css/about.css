@@ -78,7 +78,7 @@
 .about-content h2 {
   font-size: 3rem;
   font-family: var(--font-heading);
-  color: var(--text-dark);
+  color: var(--gold);
   margin-bottom: 20px;
   position: relative;
 }
