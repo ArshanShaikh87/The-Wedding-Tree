@@ -156,6 +156,7 @@
 
 # wedtree/views.py
 import threading
+import os
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -168,6 +169,7 @@ from .models import (
     GalleryPreviewItem, GalleryPreviewSettings,
 )
 from .forms import ContactForm
+ON_VERCEL = os.environ.get("VERCEL") == "1"
 
 
 # ---------- helper for async email ----------
@@ -222,49 +224,141 @@ def home(request):
 
 
 # ---------- CONTACT PAGE (GET + POST) ----------
+# def contact(request):
+#     settings_data = ContactSettings.objects.first()
+
+#     if request.method == "POST":
+#         form = ContactForm(request.POST)
+#         if form.is_valid():
+#             obj = form.save()
+
+#             # admin email
+#             admin_msg = (
+#                 f"Name: {obj.name}\n"
+#                 f"Email: {obj.email}\n"
+#                 f"Phone: {obj.phone}\n"
+#                 f"Event Type: {obj.event_type}\n\n"
+#                 f"Message:\n{obj.message}"
+#             )
+#             send_async_email(
+#                 f"NEW ENQUIRY - {obj.name}",
+#                 admin_msg,
+#                 "arshanshaikh200@gmail.com",   # fixed .com
+#             )
+
+#             # user email
+#             send_async_email(
+#                 "Thank you for contacting The Wedding Tree",
+#                 f"Hi {obj.name},\n\nThank you for contacting us.\n"
+#                 f"We will reply shortly.\n\nRegards,\nThe Wedding Tree",
+#                 obj.email,
+#             )
+
+#             messages.success(request, "✅ Thank you! Your inquiry has been sent successfully.")
+#             return redirect("contact")  # PRG pattern to avoid resubmit popup
+#         else:
+#             messages.error(request, "❌ Please correct the errors below.")
+
+#     else:
+#         form = ContactForm()
+
+#     return render(request, "wedtree/contact.html", {
+#         "settings": settings_data,
+#         "form": form,
+#     })
+
+
 def contact(request):
     settings_data = ContactSettings.objects.first()
 
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            obj = form.save()
+            if ON_VERCEL:
+                # 🔒 On Vercel: DB is read-only → do NOT save, just use cleaned_data
+                cd = form.cleaned_data
 
-            # admin email
-            admin_msg = (
-                f"Name: {obj.name}\n"
-                f"Email: {obj.email}\n"
-                f"Phone: {obj.phone}\n"
-                f"Event Type: {obj.event_type}\n\n"
-                f"Message:\n{obj.message}"
-            )
-            send_async_email(
-                f"NEW ENQUIRY - {obj.name}",
-                admin_msg,
-                "arshanshaikh200@gmail.com",   # fixed .com
-            )
+                # admin email (no DB object, use form data)
+                admin_msg = (
+                    f"Name: {cd['name']}\n"
+                    f"Email: {cd['email']}\n"
+                    f"Phone: {cd['phone']}\n"
+                    f"Event Type: {cd.get('event_type', 'Not specified')}\n\n"
+                    f"Message:\n{cd['message']}"
+                )
+                try:
+                    send_async_email(
+                        f"NEW ENQUIRY - {cd['name']}",
+                        admin_msg,
+                        "arshanshaikh200@gmail.com",
+                    )
 
-            # user email
-            send_async_email(
-                "Thank you for contacting The Wedding Tree",
-                f"Hi {obj.name},\n\nThank you for contacting us.\n"
-                f"We will reply shortly.\n\nRegards,\nThe Wedding Tree",
-                obj.email,
-            )
+                    # user email
+                    send_async_email(
+                        "Thank you for contacting The Wedding Tree",
+                        (
+                            f"Hi {cd['name']},\n\n"
+                            f"Thank you for contacting us.\n"
+                            f"We will reply shortly.\n\n"
+                            f"Regards,\nThe Wedding Tree"
+                        ),
+                        cd["email"],
+                    )
+                except Exception:
+                    # Even if email fails, don't crash user experience
+                    pass
 
-            messages.success(request, "✅ Thank you! Your inquiry has been sent successfully.")
-            return redirect("contact")  # PRG pattern to avoid resubmit popup
+                messages.success(
+                    request,
+                    "✅ Thank you! Your inquiry has been sent successfully."
+                )
+            else:
+                # 🖥️ Local / writable server: normal behavior (save to DB)
+                obj = form.save()
+
+                # admin email
+                admin_msg = (
+                    f"Name: {obj.name}\n"
+                    f"Email: {obj.email}\n"
+                    f"Phone: {obj.phone}\n"
+                    f"Event Type: {obj.event_type}\n\n"
+                    f"Message:\n{obj.message}"
+                )
+                send_async_email(
+                    f"NEW ENQUIRY - {obj.name}",
+                    admin_msg,
+                    "arshanshaikh200@gmail.com",  # fixed .com
+                )
+
+                # user email
+                send_async_email(
+                    "Thank you for contacting The Wedding Tree",
+                    (
+                        f"Hi {obj.name},\n\n"
+                        f"Thank you for contacting us.\n"
+                        f"We will reply shortly.\n\n"
+                        f"Regards,\nThe Wedding Tree"
+                    ),
+                    obj.email,
+                )
+
+                messages.success(
+                    request,
+                    "✅ Thank you! Your inquiry has been sent successfully."
+                )
+
+            # PRG pattern: avoid resubmit popup on refresh
+            return redirect("contact")
         else:
             messages.error(request, "❌ Please correct the errors below.")
-
     else:
         form = ContactForm()
 
-    return render(request, "wedtree/contact.html", {
-        "settings": settings_data,
-        "form": form,
-    })
-
+    return render(
+        request,
+        "wedtree/contact.html",
+        {"settings": settings_data, "form": form},
+    )
 
 # ---------- HOME CONTACT SUBMIT (POST only) ----------
 def contact_home(request):
