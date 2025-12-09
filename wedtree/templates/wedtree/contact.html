@@ -20,7 +20,7 @@
     </div>
     {% endif %} 
 
-   {% if messages %}
+   {% comment %} {% if messages %}
     <div class="messages">
     {% for message in messages %}
       <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
@@ -28,7 +28,7 @@
       </div>
     {% endfor %}
     </div>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
 
     <div class="contact-wrapper">
