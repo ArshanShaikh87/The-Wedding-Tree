@@ -1,48 +1,70 @@
-// ====================================================
-// 🌟 The Wedding Tree — Final JS (Navigation + Scroll)
-// ====================================================
+// Shrink navbar on scroll
+window.addEventListener("scroll", function() {
+  const navbar = document.querySelector(".navbar");
+  if (window.scrollY > 50) {
+    navbar.style.backgroundColor = "#111";
+    navbar.style.padding = "10px 40px";
+  } else {
+    navbar.style.backgroundColor = "var(--black)";
+    navbar.style.padding = "20px 40px";
+  }
+});
+// const menuToggle = document.querySelector('.menu-toggle');
+// const navLinks = document.querySelector('.nav-links');
 
+// menuToggle?.addEventListener('click', () => {
+//   navLinks.classList.toggle('active');
+// });
+
+
+// =============================
+// 🌟 Mobile Menu Toggle + Click Outside Close
+// =============================
 document.addEventListener("DOMContentLoaded", function () {
-  const menuToggle = document.getElementById("menuToggle");
-  const mobileMenu = document.getElementById("mobileMenu");
-  const overlay = document.getElementById("mobileOverlay");
-  const header = document.querySelector(".site-header");
-  const scrollTopBtn = document.getElementById("scrollTop");
-  const body = document.body;
+  const navbar = document.querySelector(".navbar");
+  const navLinks = document.querySelector(".nav-links");
 
-  // Mobile menu toggle
-  menuToggle.addEventListener("click", () => {
-    const active = mobileMenu.classList.toggle("active");
-    overlay.classList.toggle("active");
-    body.style.overflow = active ? "hidden" : "auto";
+  // Create hamburger icon dynamically if not in HTML
+  let menuToggle = document.querySelector(".menu-toggle");
+  if (!menuToggle) {
+    menuToggle = document.createElement("button");
+    menuToggle.classList.add("menu-toggle");
+    menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    navbar.appendChild(menuToggle);
+  }
+
+  // Toggle Menu Open/Close
+  menuToggle.addEventListener("click", (e) => {
+    e.stopPropagation(); // prevent triggering document click
+    const isActive = navLinks.classList.toggle("active");
+
+    // Change icon (bars <-> cross)
+    menuToggle.innerHTML = isActive
+      ? '<i class="fa-solid fa-xmark"></i>'
+      : '<i class="fa-solid fa-bars"></i>';
+
+    // Prevent background scroll
+    document.body.style.overflow = isActive ? "hidden" : "auto";
   });
 
-  // Close menu on overlay click
-  overlay.addEventListener("click", () => {
-    mobileMenu.classList.remove("active");
-    overlay.classList.remove("active");
-    body.style.overflow = "auto";
+  // ✅ Close menu if user clicks outside nav-links
+  document.addEventListener("click", (e) => {
+    const isClickInsideMenu = navLinks.contains(e.target) || menuToggle.contains(e.target);
+    if (!isClickInsideMenu && navLinks.classList.contains("active")) {
+      navLinks.classList.remove("active");
+      menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+      document.body.style.overflow = "auto";
+    }
   });
 
-  // Auto close when clicking a link
-  document.querySelectorAll(".mobile-nav-links a").forEach(link => {
+  // ✅ Also close when a nav link is clicked
+  document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", () => {
-      mobileMenu.classList.remove("active");
-      overlay.classList.remove("active");
-      body.style.overflow = "auto";
+      if (navLinks.classList.contains("active")) {
+        navLinks.classList.remove("active");
+        menuToggle.innerHTML = '<i class="fa-solid fa-bars"></i>';
+        document.body.style.overflow = "auto";
+      }
     });
-  });
-
-  // Header scroll effect
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
-
-    scrollTopBtn.style.display = window.scrollY > 300 ? "block" : "none";
-  });
-
-  // Scroll top behavior
-  scrollTopBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 });

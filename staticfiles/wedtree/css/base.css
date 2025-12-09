@@ -1,384 +1,153 @@
-/* =====================================================
-   🌟 The Wedding Tree — Final Base Styles (Production)
-   Author: Arshan Shaikh
-   ===================================================== */
-
-/* RESET + VARIABLES */
+/* =========================
+   🌟 Base (Global) Styles
+   ========================= */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
 }
 
 :root {
   --gold: #D4AF37;
   --black: #000000;
-  --white: #FFFFFF;
-  --light-grey: #F5F5F5;
+  /* --white: #FFFFFF; */
+   --white: #fff9f5;
+  --light-grey: #fff9f5;
   --champagne: #8C7B6B;
   --font-heading: 'Poppins', serif;
   --font-body: 'Lato', sans-serif;
 }
 
-/* BASE TYPOGRAPHY */
+/* =========================
+   🌟 Global Font Styling
+   ========================= */
 body {
-  font-family: var(--font-body);
+  font-family: 'Poppins', sans-serif;
   background-color: var(--white);
   color: var(--black);
   line-height: 1.6;
-  overflow-x: hidden;
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: var(--font-heading);
+  font-family: 'Poppins';
+  font-weight: 600;
   color: var(--gold);
+  letter-spacing: 0.5px;
 }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
+/* Paragraphs */
+p {
+  font-family: 'Lato', sans-serif;
+  color: var(--black);
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-}
+/* =========================
+   🌟 Navbar Styles
+   ========================= */
 
-/* =====================================================
-   🧭 HEADER / NAVBAR (Desktop + Mobile)
-   ===================================================== */
-.site-header {
+.navbar {
   width: 100%;
-  background-color: var(--black);
+  background-color: #000000;
+  padding: 20px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: all 0.3s ease-in-out;
 }
 
-.site-header.scrolled {
-  background: rgba(0, 0, 0, 0.9);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-
-.header-inner {
+.navbar .container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0.5rem 0;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
 }
 
-/* LEFT SIDE: LOGO */
-.logo-link {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.logo-img {
-  height: clamp(45px, 4vw, 60px);
-  width: auto;
-  object-fit: contain;
-}
-
-.logo-text {
-  font-size: clamp(1.3rem, 2vw, 1.8rem);
+.logo a {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
   font-weight: 600;
-  color: var(--white);
+  color: #ffffff;
+  text-decoration: none;
 }
 
-.logo-text span {
-  color: var(--gold);
+.logo span {
+  color: #D4AF37;
 }
 
-/* RIGHT SIDE: NAVBAR */
-.primary-nav ul {
+.nav-links {
+  list-style: none;
   display: flex;
   gap: 25px;
-  list-style: none;
 }
 
-.primary-nav a {
-  color: var(--white);
-  font-family: var(--font-body);
+.nav-links li a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
   font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s ease;
+  color: #ffffff;
+  transition: 0.3s ease;
 }
 
-.primary-nav a:hover {
-  color: var(--gold);
+.nav-links li a:hover {
+  color: #D4AF37;
 }
 
-/* Hamburger Button */
-.menu-toggle {
-  background: none;
-  border: none;
-  color: var(--gold);
-  font-size: 1.6rem;
-  display: none;
-  cursor: pointer;
-}
+/* 🌍 Responsive Navbar */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #000;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 200px;
+    padding: 15px;
+  }
 
-/* =====================================================
-   📱 MOBILE MENU
-   ===================================================== */
-.mobile-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-  z-index: 998;
-}
+  .nav-links.active {
+    display: flex;
+  }
 
-.mobile-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.mobile-menu {
-  position: fixed;
-  top: 0;
-  right: -100%;
-  width: 70%;
-  max-width: 320px;
-  height: 100%;
-  background: var(--black);
-  color: var(--white);
-  z-index: 999;
-  transition: right 0.4s ease;
-  padding: 2rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.mobile-menu.active {
-  right: 0;
-}
-
-/* Mobile Menu: Logo Left, Hamburger Right */
-.mobile-menu-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.mobile-logo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-
-.mobile-logo .logo-img {
-  height: 45px;
-}
-
-.mobile-logo .logo-text {
-  color: var(--white);
-  font-size: 1.4rem;
-}
-
-.mobile-nav-links {
-  list-style: none;
-  margin-top: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
-  text-align: center;
-}
-
-.mobile-nav-links a {
-  color: var(--white);
-  font-size: 1.1rem;
-  font-weight: 500;
-  transition: color 0.3s ease, transform 0.3s ease;
-}
-
-.mobile-nav-links a:hover {
-  color: var(--gold);
-  transform: scale(1.05);
-}
-
-.mobile-menu-bottom {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.mobile-social a {
-  color: var(--gold);
-  font-size: 1.3rem;
-  margin: 0 10px;
-  transition: transform 0.3s ease;
-}
-
-.mobile-social a:hover {
-  transform: scale(1.2);
-}
-
-.mobile-contact a {
-  color: var(--light-grey);
-  font-size: 0.9rem;
-}
-
-/* Responsive navbar adjustments */
-@media (max-width: 992px) {
   .menu-toggle {
     display: block;
+    cursor: pointer;
+    color: #D4AF37;
+    font-size: 1.5rem;
   }
+}
 
-  .primary-nav {
+
+/* =========================
+   🌸 Footer Styles
+   ========================= */
+.footer {
+  background-color: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 25px 10px;
+  font-family: 'Lato', sans-serif;
+  border-top: 1px solid var(--gold);
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--light-grey);
+}
+
+/* =========================
+   📱 Responsive Navbar
+   ========================= */
+@media (max-width: 768px) {
+  .nav-links {
     display: none;
   }
-
-  .header-inner {
-    padding: 0.8rem 0;
-  }
-
-  .logo-img {
-    height: 45px;
-  }
 }
 
-/* =====================================================
-   ⚓ FOOTER (3-Column Layout)
-   ===================================================== */
-.site-footer {
-  background: var(--black);
-  color: var(--light-grey);
-  padding: 3rem 1rem;
-  border-top: 1px solid var(--gold);
-}
 
-.footer-top {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
 
-/* Left Column - Logo */
-.footer-col-logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.8rem;
-}
 
-.footer-logo-img {
-  height: 60px;
-}
 
-.footer-logo-text {
-  color: var(--white);
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-.footer-logo-text span {
-  color: var(--gold);
-}
-
-/* Middle Column - Links & Socials */
-.footer-col-links {
-  text-align: center;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
-
-.footer-links a {
-  color: var(--white);
-  font-size: 1rem;
-}
-
-.footer-links a:hover {
-  color: var(--gold);
-}
-
-.footer-social {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-}
-
-.footer-social a {
-  color: var(--gold);
-  font-size: 1.3rem;
-  transition: transform 0.3s;
-}
-
-.footer-social a:hover {
-  transform: scale(1.2);
-}
-
-/* Right Column - Address / Contact */
-.footer-col-contact {
-  text-align: right;
-  font-size: 0.9rem;
-}
-
-.footer-col-contact p {
-  color: var(--light-grey);
-}
-
-.footer-col-contact a {
-  color: var(--gold);
-  font-weight: 500;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 2rem;
-  border-top: 1px solid var(--gold);
-  padding-top: 1rem;
-  font-size: 0.9rem;
-  color: var(--light-grey);
-}
-
-/* Responsive Footer */
-@media (max-width: 768px) {
-  .footer-col-contact {
-    text-align: center;
-  }
-}
-
-/* =====================================================
-   🔼 SCROLL TOP BUTTON
-   ===================================================== */
-.scroll-top {
-  position: fixed;
-  bottom: 25px;
-  right: 25px;
-  background-color: var(--gold);
-  color: var(--black);
-  border: none;
-  padding: 10px 14px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  cursor: pointer;
-  z-index: 999;
-  transition: background-color 0.3s, transform 0.3s;
-}
-
-.scroll-top:hover {
-  background-color: var(--champagne);
-  transform: scale(1.1);
-}

@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 from pathlib import Path
-import os
-from decouple import config
+# import os
+# from decouple import config
 
 from pathlib import Path
 
@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-$tiv0r-+ls8rz^4w2#801eue8o@q4g(1laocu#2n!ca$0(fzg5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','localhost','10.226.64.103',]
 
 
 # Application definition
@@ -136,7 +136,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 # WhiteNoise static optimization
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',"django.contrib.staticfiles.storage.menifest.StaticfilesStorage"
 
 
 # Default primary key field type

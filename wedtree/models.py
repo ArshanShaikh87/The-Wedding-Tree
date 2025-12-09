@@ -7,6 +7,7 @@ class Contact(models.Model):
     email = models.EmailField()
     phone = models.CharField(max_length=20, blank=True, null=True)
     message = models.TextField()
+    event_type=models.CharField(max_length=100, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -92,5 +93,64 @@ class Gallery(models.Model):
         ordering = ['-uploaded_at']
 
 
+
+
+
+# ========== HOME PAGE MODELS ==========
+class HeroSection(models.Model):
+    title = models.CharField(max_length=200, help_text="Main hero headline")
+    subtitle = models.CharField(max_length=300, blank=True, null=True)
+    background_image = models.ImageField(upload_to="home/hero/", blank=True, null=True)
+    cta_text = models.CharField(max_length=100, default="Plan Your Dream Wedding")
+    cta_link = models.CharField(max_length=200, default="#contact")
+
+    class Meta:
+        verbose_name = "Hero Section"
+        verbose_name_plural = "Hero Section"
+
+    def __str__(self):
+        return self.title
+
+
+class Highlight(models.Model):
+    icon = models.CharField(max_length=100, help_text="FontAwesome class, e.g., fa-solid fa-heart")
+    title = models.CharField(max_length=100)
+    description = models.TextField()
+
+    class Meta:
+        verbose_name = "Highlight"
+        verbose_name_plural = "Highlights"
+
+    def __str__(self):
+        return self.title
+
+class GalleryPreviewItem(models.Model):
+    """Simpler, new model for gallery preview items (images only)."""
+    title = models.CharField(max_length=150, blank=True, null=True)
+    image = models.ImageField(upload_to="gallery/preview/")
+    order = models.PositiveIntegerField(default=0, help_text="Lower numbers shown first")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+
+    class Meta:
+        ordering = ["order", "-created_at"]
+        verbose_name = "Gallery Preview Item"
+        verbose_name_plural = "Gallery Preview Items"
+
+    def __str__(self):
+        return self.title or f"GalleryPreview#{self.pk}"
+    
+
+
+class GalleryPreviewSettings(models.Model):
+    heading = models.CharField(max_length=150, default="Moments We’ve Crafted")
+    subheading = models.CharField(max_length=255, default="Click any image to expand — it grows in place and other cards gently shrink.")
+
+    class Meta:
+        verbose_name = "Gallery Preview Text"
+        verbose_name_plural = "Gallery Preview Text"
+
+    def __str__(self):
+        return "Gallery Preview Settings"
 
 

@@ -40,7 +40,7 @@
 </section>
 {% endblock %} {% endcomment %}
 
-{% load static %}
+{% comment %} {% load static %}
 {% block css %}
 <link rel="stylesheet" href="{% static 'css/about.css' %}">
 {% endblock %}
@@ -78,4 +78,143 @@
     </div>
   </div>
 </section>
+{% endblock %} {% endcomment %}
+
+
+
+{% load static %}
+
+{% block title %}About Us | The Wedding Tree{% endblock %}
+
+{% block meta %}
+
+<!-- ========== BASIC SEO ========== -->
+<title>About Us | The Wedding Tree — Luxury Wedding Planners</title>
+
+<meta name="description" content="Learn about The Wedding Tree — India’s luxury wedding planners offering premium décor, creative themes, and stress-free event management. Discover our story, vision, and passion for timeless celebrations.">
+
+<meta name="keywords" content="about wedding planner, luxury wedding decorators, wedding planning team, The Wedding Tree story, event management India">
+
+<meta name="author" content="The Wedding Tree">
+
+<!-- ========== CANONICAL URL ========== -->
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+
+<!-- ========== OPEN GRAPH (Facebook, Instagram, WhatsApp) ========== -->
+<meta property="og:title" content="About The Wedding Tree — Luxury Wedding Decor & Planning">
+<meta property="og:description" content="Discover our story, our mission, and how we create unforgettable weddings with elegance and precision.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:image" content="{% if about.image %}{{ about.image.url }}{% else %}{% static 'wedtree/images/logo.png' %}{% endif %}">
+<meta property="og:site_name" content="The Wedding Tree">
+
+<!-- ========== TWITTER CARD ========== -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About The Wedding Tree — Luxury Wedding Decor & Planning">
+<meta name="twitter:description" content="Know who we are, what we do, and why we are trusted wedding planners across India.">
+<meta name="twitter:image" content="{% if about.image %}{{ about.image.url }}{% else %}{% static 'wedtree/images/logo.png' %}{% endif %}">
+
+<!-- ========== JSON-LD SCHEMA (Google SEO) — ORGANIZATION ========== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Wedding Tree",
+  "url": "{{ request.build_absolute_uri }}",
+  "logo": "{% static 'wedtree/images/logo.png' %}",
+  "description": "India’s luxury wedding planners offering décor, event design, and complete wedding management.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Pune",
+    "addressRegion": "MH",
+    "postalCode": "411001",
+    "addressCountry": "IN"
+  },
+  "email": "Weddingtree09@gmail.com",
+  "telephone": "+91 87880 63968",
+  "sameAs": [
+    "https://instagram.com/thewedding_tree",
+    "https://youtube.com/@TheWeddingTree",
+    "https://pinterest.com/TheWeddingTree"
+  ]
+}
+</script>
+
 {% endblock %}
+
+{# Extra CSS only for About page #}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'wedtree/css/about.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="about" id="about">
+  <div class="about-container">
+    
+    {% comment %} {# =======================
+       LEFT: IMAGE BLOCK
+       ======================= #} {% endcomment %}
+     <div class="about-image">
+      {% if about and about.image %}
+        <img src="{{ about.image.url }}" alt="{{ about.title|default:'About The Wedding Tree' }}">
+      {% else %}
+        <img src="{% static 'wedtree/images/gallery.jpg' %}" alt="The Wedding Tree">
+      {% endif %}
+
+      <div class="image-overlay">
+        <h3>
+          {% if about and about.subtitle %}
+            {{ about.subtitle }}
+          {% else %}
+            Creating Timeless Memories
+          {% endif %}
+        </h3>
+      </div>
+    </div> 
+{% comment %} 
+    {# =======================
+       RIGHT: TEXT CONTENT
+       ======================= #} {% endcomment %}
+    <div class="about-content">
+      <h2>
+        {% if about and about.title %}
+          {{ about.title }}
+        {% else %}
+          About The Wedding Tree
+        {% endif %}
+      </h2>
+
+      <p class="intro">
+        {% if about and about.description1 %}
+          {{ about.description1 }}
+        {% else %}
+          We design, plan, and manage elegant weddings with love and precision.
+        {% endif %}
+      </p>
+
+      {% if about and about.description2 %}
+        <p>{{ about.description2 }}</p>
+      {% endif %}
+
+      <blockquote>
+        {% if about and about.quote %}
+          “{{ about.quote }}”
+        {% else %}
+          “Turning dreams into timeless celebrations.”
+        {% endif %}
+      </blockquote>
+
+      <a href="{% url 'contact' %}" class="btn">
+        Plan Your Wedding With Us
+      </a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %} 
+
+
+
+

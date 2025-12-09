@@ -1,4 +1,4 @@
-/* ===============================================
+/* /* ===============================================
    🌸 The Wedding Tree | About Page Styles
    =============================================== */
 
@@ -76,7 +76,7 @@
 }
 
 .about-content h2 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-family: var(--font-heading);
   color: var(--gold);
   margin-bottom: 20px;
@@ -136,11 +136,12 @@
   text-align: center;
   transition: all 0.4s ease;
   box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  text-decoration: none;
 }
 
 .about-content .btn:hover {
-  background: transparent;
-  color: var(--primary-gold);
+  background-color:var(--black);
+  color: var(--gold);
   border: 2px solid var(--primary-gold);
   box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
 }
@@ -163,9 +164,14 @@
    📱 Responsive Design
    ============================ */
 @media (max-width: 992px) {
+   .about-title{
+    font-size: 1.6rem;      
+    margin-bottom: 6px;
+  } 
+
   .about-container {
     flex-direction: column;
-    text-align: center;
+    text-align: left;
   }
 
   .about-content h2::after {
@@ -174,12 +180,12 @@
   }
 
   .about-content {
-    align-items: center;
+    align-items: left;
   }
 
   .about-content p,
   .about-content blockquote {
-    text-align: center;
+    text-align: left;
   }
 
   .about-content blockquote {
@@ -210,4 +216,6 @@
     padding: 10px 24px;
     font-size: 0.95rem;
   }
-}
+} 
+
+

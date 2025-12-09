@@ -14,7 +14,7 @@
   --black: #000000;
   /* --white: #FFFFFF; */
    --white: #fff9f5;
-  --light-grey: #F5F5F5;
+  --light-grey: #fff9f5;
   --champagne: #8C7B6B;
   --font-heading: 'Poppins', serif;
   --font-body: 'Lato', sans-serif;
@@ -24,18 +24,12 @@
    🌟 Global Font Styling
    ========================= */
 body {
-  font-family: 'Lato', 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
   background-color: var(--white);
   color: var(--black);
   line-height: 1.6;
 }
 
-h1.hero-title {
-  font-family: 'Great Vibes', cursive;
-  font-size: 3rem;
-  color: var(--gold);
-}
-/* Headings (Premium Gold Style) */
 h1, h2, h3, h4, h5 {
   font-family: 'Poppins';
   font-weight: 600;
@@ -157,4 +151,3 @@ p {
 
 
 
-/* Navbar & Footer will be styled later */

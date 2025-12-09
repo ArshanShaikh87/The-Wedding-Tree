@@ -23,6 +23,9 @@
     <link rel="stylesheet" href="{% static 'wedtree/css/services.css' %}">
     <link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}">
     <link rel="stylesheet" href="{% static 'wedtree/css/contact.css' %}">
+
+    <link rel="stylesheet" href="{% static 'wedtree/css/header-fix.css' %}">
+
     {% block extra_css %}{% endblock %}
 
 
@@ -31,10 +34,14 @@
 <body>
     <!-- Navbar -->
     <header class="navbar">
-  <div class="container">
-    <div class="logo">
-      <a href="{% url 'home' %}">The <span>Wedding Tree</span></a>
-    </div>
+  <!-- ✅ Logo + Text -->
+<div class="logo">
+  <a href="{% url 'home' %}" class="logo-link">
+    <img src="{% static 'wedtree/images/logo.png' %}" alt="The Wedding Tree" class="logo-img">
+    <span class="logo-text">The <span> Wedding Tree</span></span>
+  </a>
+</div>
+
     <nav>
       <ul class="nav-links">
         <li><a href="{% url 'home' %}">Home</a></li>
@@ -64,8 +71,25 @@
     <script src="{% static 'wedtree/js/main.js' %}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>AOS.init({ duration: 1000, once: true });</script>
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<script>
+  // Image Lightbox
+  const lightboxImage = GLightbox({
+      selector: '.glightbox-image'
+  });
+
+  // Video Lightbox
+  const lightboxVideo = GLightbox({
+      selector: '.glightbox-video',
+      plyr: {
+          css: null,
+          js: null
+      }
+  });
+</script>
+
 
     {% block extra_js %}{% endblock %}
 </body>
 </html>
-(END)

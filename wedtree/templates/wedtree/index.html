@@ -1,114 +1,296 @@
 {% extends 'wedtree/base.html' %}
-{% load static %}
-{% block content %}
-{% block css %}
-<link rel="stylesheet" href="{% static 'wedtree/css/home.css' %}">
 
+{% load static %}
+
+{% block title %}The Wedding Tree — Luxury Weddings & Event Decor{% endblock %}
+
+{% block meta %}
+
+<meta name="description" content="The Wedding Tree — Luxury wedding planning, décor and event management across India. Creative themes, elegant decor and stress-free events.">
+<meta name="description" content="Discover why The Wedding Tree is India's trusted wedding planner — from luxury décor to seamless event management and personalized concepts.">
+<meta name="keywords" content="wedding planner India, wedding decor, event management, luxury wedding planner, The Wedding Tree">
+<meta name="author" content="The Wedding Tree">
+<meta property="og:title" content="The Wedding Tree — Luxury Wedding Planning & Decor">
+<meta property="og:description" content="Turning your dream weddings into unforgettable memories.">
+<meta property="og:image" content="{% if hero and hero.background_image %}{{ hero.background_image.url }}{% else %}{% static 'wedtree/images/logo.png' %}{% endif %}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css">
+<!-- JSON-LD business schema -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"EventPlanning",
+  "name":"The Wedding Tree",
+  "url":"{{ request.build_absolute_uri|slice:":-1" }}",
+  "logo":"{% static 'wedtree/images/logo.png' %}",
+  "telephone":"+91-8788063968",
+  "email":"Weddingtree09@gmail.com",
+  "address":{
+    "@type":"PostalAddress",
+    "addressLocality":"Pune",
+    "addressRegion":"MH",
+    "postalCode":"411001",
+    "addressCountry":"IN"
+  },
+  "description":"Luxury wedding and event planners offering bespoke decor and end-to-end event management across India.",
+  "sameAs":["https://instagram.com/thewedding_tree","https://youtube.com/@TheWeddingTree","https://pinterest.com/TheWeddingTree"]
+}
+</script>
 {% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'wedtree/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+
 {% if messages %}
   <div class="messages">
     {% for message in messages %}
-      <p class="success-msg">{{ message }}</p>
+      <div class="alert">{{ message }}</div>
     {% endfor %}
   </div>
 {% endif %}
 
+<!-- HERO -->
+<section class="hero" role="region" aria-label="Hero section"
+  {% if hero and hero.background_image %} style="background-image: url('{{ hero.background_image.url }}');" {% endif %}>
+  <div class="hero-overlay" aria-hidden="true"></div>
+   {% comment %} <div class="scroll-indicator">
+  <i class="fa-solid fa-angles-down"></i>  {% endcomment %}
+  <!-- inside .hero-inner -->
+  <div class="scroll-indicator" id="scrollIndicator" role="button" aria-label="Scroll to next section" tabindex="0">
+  <i class="fa-solid fa-angles-down" aria-hidden="true"></i>
+</div>
 
-<!-- 🌟 Hero Section Start -->
-<section class="hero">
-  <div class="hero-content">
-    <h1>Turning your dream weddings into <span>unforgettable memories</span></h1>
-    <p>Elegant, luxury wedding planning & décor</p>
-    <a href="{% url 'contact' %}" class="btn">Plan Your Dream Wedding</a>
+</div>
+  <div class="hero-inner container">
+    <div class="hero-text" data-aos="fade-up">
+      <h1 class="hero-title">{% if hero %}{{ hero.title|safe }}{% else %}Turning Your Dream Weddings Into Unforgettable Memories{% endif %}</h1>
+      <p class="hero-sub">{% if hero %}{{ hero.subtitle }}{% else %}Elegant, Luxury Wedding Planning & Décor{% endif %}</p>
+      <a class="btn hero-cta" href="{% if hero %}{{ hero.cta_link }}{% else %}{% url 'contact' %}{% endif %}">{% if hero %}{{ hero.cta_text }}{% else %}Plan Your Dream Wedding{% endif %}</a>
+    </div>
+    <!-- optional small image block or awards can go here -->
   </div>
 </section>
 
-<!-- 🌟 Hero Section End -->
- <!-- 🌟 Highlights Section Start -->
-<section class="highlights">
+
+
+    <!-- HIGHLIGHTS -->
+<section class="highlights" aria-labelledby="why-choose">
   <div class="container">
-    <div class="highlight">
-      <i class="fa-solid fa-champagne-glasses"></i>
-      <h3>Customized Wedding Decor</h3>
-      <p>Designed with creativity and luxury for every unique celebration.</p>
-    </div>
+    <h2 id="why-choose" class="section-heading" data-aos="fade-up">Why Choose Us</h2>
 
-    <div class="highlight">
-      <i class="fa-solid fa-people-group"></i>
-      <h3>Hassle-free Event Management</h3>
-      <p>From planning to execution — every moment handled with perfection.</p>
-    </div>
-
-    <div class="highlight">
-      <i class="fa-solid fa-palette"></i>
-      <h3>Personalized Themes & Concepts</h3>
-      <p>Crafted experiences that reflect your personal story and style.</p>
+    <div class="highlights-grid">
+      {% if highlights %}
+        {% for h in highlights %}
+        <article class="highlight-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:'100' }}">
+          <div class="icon"><i class="{{ h.icon }}"></i></div>
+          <h3>{{ h.title }}</h3>
+          <p>{{ h.description }}</p>
+        </article>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback Data -->
+        <article class="highlight-card"><div class="icon"><i class="fa-solid fa-champagne-glasses"></i></div><h3>Custom Decor</h3><p>Designed with creativity and luxury for every unique celebration.</p></article>
+        <article class="highlight-card"><div class="icon"><i class="fa-solid fa-handshake"></i></div><h3>Hassle Free</h3><p>From planning to execution — every moment handled with perfection.</p></article>
+        <article class="highlight-card"><div class="icon"><i class="fa-solid fa-palette"></i></div><h3>Creative Themes</h3><p>Crafted experiences that reflect your personal story and style.</p></article>
+      {% endif %}
     </div>
   </div>
 </section>
-<!-- 🌟 Highlights Section End -->
 
-<section class="gallery-preview">
-  <h2>Moments We’ve Crafted</h2>
-  <div class="gallery-grid">
-    <div class="gallery-item" loading="leazy"><img src="{% static 'wedtree/images/gallery1.jpg' %}" alt="Wedding Decor"></div>
-    <div class="gallery-item"><img src="{% static 'wedtree/images/gallery2.jpg' %}" alt="Stage Setup"></div>
-    <div class="gallery-item"><img src="{% static 'wedtree/images/gallery3.jpg' %}" alt="Haldi Decor"></div>
-    <div class="gallery-item"><img src="{% static 'wedtree/images/gallery7.jpg' %}" alt="Reception Night"></div>
-  </div>
-  <div class="gallery-btn">
-    <a href="{% url 'gallery' %}" class="btn">View Full Gallery</a>
-  </div>
-</section>
+<section class="gp-section" aria-label="Gallery preview">
 
+  <!-- 🔥 Dynamic Heading -->
+  <h2 class="gp-title">{{ heading_title }}</h2>
 
-<!-- ===============================
-     🌸 Contact Section
-================================ -->
-<section class="contact" id="contact">
-  {% if messages %}
-  <div class="messages">
-    {% for message in messages %}
-    <div class="alert alert-success">
-      {{ message }}
-    </div>
+  <!-- 🔥 Dynamic Subheading -->
+  <p class="gp-sub">{{ heading_subtitle }}</p>
+
+  <div class="gp-row" id="gpRow" tabindex="0">
+
+    {% for item in gallery_items %}
+      <div class="gp-card"
+           data-src="{{ item.image }}"
+           tabindex="0"
+           aria-label="{{ item.title }}">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
+        <div class="gp-caption">{{ item.title }}</div>
+        <div class="gp-icon">★</div>
+      </div>
     {% endfor %}
+
   </div>
-  {% endif %}
+
+  <!-- 🔥 Button to Gallery Page -->
+  <div style="text-align:center; margin-bottom: 22px;">
+    <a href="{% url 'gallery' %}" class="gp-btn">
+      View Full Gallery →
+    </a>
+  </div>
+
+  <!-- modal full view -->
+  <div class="gp-modal" id="gpModal" role="dialog" aria-hidden="true">
+    <div class="gp-modal-inner" role="document">
+      <button class="gp-close" id="gpClose" aria-label="Close">✕</button>
+      <img id="gpModalImg" src="" alt="Expanded">
+    </div>
+  </div>
+
+</section>
+
+{% comment %} Contact section {% endcomment %}
+<section class="contact-section" id="contact">
   <div class="container">
     <h2 class="section-title">Let’s Plan Your Dream Wedding</h2>
-    <p class="section-subtitle">We’d love to bring your wedding dreams to life. Get in touch with us today!</p>
+    <p class="section-subtitle">
+      We’d love to bring your wedding dreams to life. Get in touch with us today!
+    </p>
 
-    <div class="contact-content">
+    {% if messages %}
+      <div class="alert-message">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="contact-wrapper">
       <!-- Contact Form -->
-      <form method="POST" action="{% url 'contact' %}" class="contact-form">
-  {% csrf_token %}
-  <input type="text" name="name" placeholder="Your Name" required>
-  <input type="email" name="email" placeholder="Your Email" required>
-  <input type="tel" name="phone" placeholder="Your Mobile Number" pattern="[0-9]{10}" required>
-  <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
-  <button type="submit" class="btn">Send Your Inquiry</button>
-</form>
+      <form method="post"
+            action="{% url 'contact' %}"
+            class="contact-form"
+            id="homeContactForm"
+            novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="source" value="home">
 
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <input type="tel" name="phone" placeholder="Your Mobile Number" pattern="[0-9]{10}">
+        <select name="event_type" required>
+          <option value="">Select Event Type</option>
+          <option value="Wedding">Wedding</option>
+          <option value="Engagement">Engagement</option>
+          <option value="Reception">Reception</option>
+          <option value="Corporate Event">Corporate Event</option>
+          <option value="Birthday">Birthday</option>
+          <option value="Other">Other</option>
+        </select>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+
+        <button type="submit" class="btn" id="homeContactSubmit">Send Message</button>
+      </form>
 
       <!-- Contact Info -->
       <div class="contact-info">
-        <p><strong>Phone / WhatsApp:</strong> <a href="https://wa.me/918788063968" target="_blank">+91 87880 63968</a></p>
-        <p><strong>Email:</strong> <a href="mailto:weddingtrr09@gmail.com">weddingtrr09@gmail.com</a></p>
+        <h3>Contact Information</h3>
 
-        <div class="social-links">
-          <a href="https://instagram.com/thewedding_tree" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://youtube.com/@TheWeddingTree" target="_blank"><i class="fab fa-youtube"></i></a>
-          <a href="https://pinterest.com/TheWeddingTree" target="_blank"><i class="fab fa-pinterest"></i></a>
-        </div>
+        {% if settings %}
+          {# Phone / WhatsApp #}
+          {% if settings.whatsapp_number %}
+            <p>
+              <strong>Phone / WhatsApp:</strong>
+              <a href="https://wa.me/{{ settings.whatsapp_number|cut:'+'|cut:' ' }}"
+                 target="_blank" rel="noopener noreferrer">
+                {{ settings.phone|default:settings.whatsapp_number }}
+              </a>
+            </p>
+          {% else %}
+            {% if settings.phone %}
+              <p>
+                <strong>Phone:</strong>
+                <a href="tel:{{ settings.phone }}">{{ settings.phone }}</a>
+              </p>
+            {% endif %}
+          {% endif %}
+
+          {# Email #}
+          {% if settings.email %}
+            <p>
+              <strong>Email:</strong>
+              <a href="mailto:{{ settings.email }}">{{ settings.email }}</a>
+            </p>
+          {% endif %}
+
+          {# Social Links #}
+          <div class="social-links">
+            <h4>Follow Us:</h4>
+            {% if settings.instagram %}
+              <a href="{{ settings.instagram }}" target="_blank" rel="noopener noreferrer" title="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+            {% endif %}
+            {% if settings.youtube %}
+              <a href="{{ settings.youtube }}" target="_blank" rel="noopener noreferrer" title="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+            {% endif %}
+            {% if settings.pinterest %}
+              <a href="{{ settings.pinterest }}" target="_blank" rel="noopener noreferrer" title="Pinterest">
+                <i class="fab fa-pinterest"></i>
+              </a>
+            {% endif %}
+          </div>
+
+          {# Map #}
+          <div class="map-container">
+            {% if settings.map_embed %}
+              {{ settings.map_embed|safe }}
+            {% else %}
+              <!-- fallback map -->
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!..."
+                width="100%"
+                height="250"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy">
+              </iframe>
+            {% endif %}
+          </div>
+
+        {% else %}
+          <p>Please configure contact details in the admin panel.</p>
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
 
 
-
+<!-- Floating WhatsApp Button -->
+{% if settings and settings.whatsapp_number %}
+<a href="https://wa.me/{{ settings.whatsapp_number }}" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Chat with us on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+{% endif %}
 
 
 {% endblock %}
+
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+<script>
+  const lightbox = GLightbox({ selector: '.gallery-lightbox' });
+</script>
+<script src="{% static 'wedtree/js/home.js' %}"></script>
+<script>
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const alertBox = document.querySelector(".alert-message");
+    if (alertBox) {
+        setTimeout(() => {
+            alertBox.style.transition = "opacity 0.6s ease";
+            alertBox.style.opacity = "0";
+            setTimeout(() => alertBox.remove(), 600);
+        }, 3000); // hide after 3 seconds
+    }
+});
+</script>
+{% endblock %}  
 
