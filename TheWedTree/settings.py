@@ -32,7 +32,7 @@ DEBUG = True
 
 
 # Application definition
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost','.vercel.app']
 
 INSTALLED_APPS = [
     'colorfield',
