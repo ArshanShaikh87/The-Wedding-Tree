@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
-import dj_database_url
 import os
+import dj_database_url
+
 # import os
 # from decouple import config
 
@@ -170,3 +171,4 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
