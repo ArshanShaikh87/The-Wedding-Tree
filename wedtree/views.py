@@ -161,6 +161,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
+from collections import defaultdict
 
 from .models import (
     Contact, ContactSettings,
@@ -459,9 +460,15 @@ def about(request):
 
 
 def services(request):
-    all_services = Service.objects.all().order_by('-created_at')
-    return render(request, 'wedtree/services.html', {'services': all_services})
+    services = Service.objects.all()
 
+    grouped_services = defaultdict(list)
+    for service in services:
+        grouped_services[service.section].append(service)
+
+    return render(request, 'wedtree/services.html', {
+        'grouped_services': dict(grouped_services)
+    })
 
 def gallery(request):
     gallery_items = Gallery.objects.all().order_by('-uploaded_at')

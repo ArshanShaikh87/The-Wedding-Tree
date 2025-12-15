@@ -42,9 +42,10 @@ admin.site.index_title = "Welcome to The Wedding Tree Management System"
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created_at')
-    search_fields = ('title',)
-    
+    list_display = ('title', 'section', 'order')
+    list_filter = ('section',)
+    search_fields = ('title', 'section')
+    ordering = ('section', 'order')
     
     
 

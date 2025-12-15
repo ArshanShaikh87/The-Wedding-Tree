@@ -1,34 +1,60 @@
 {% extends 'wedtree/base.html' %}
-{% load static %}
 
 {% block title %}Our Services | The Wedding Tree{% endblock %}
-
-{% block meta %}
-<meta name="description" content="Discover The Wedding Tree's expert wedding planning and décor services — from luxurious wedding themes to elegant stage designs.">
-<meta name="keywords" content="wedding decor, wedding planning, mehendi decor, haldi decor, event management, wedding stage design, luxury wedding planner">
-{% endblock %}
 
 {% block content %}
 <section class="services-section">
   <div class="container">
-    <h1 class="section-title" data-aos="fade-up">Our Expertise, Your Perfect Day</h1>
-    <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">
-      From grand wedding décor to celebrations — we design it all with perfection and love.
+
+    <!-- PAGE HEADING -->
+    <h1 class="section-title">Our Services</h1>
+    <p class="section-subtitle">
+      Thoughtfully curated services designed to plan, manage and execute your perfect celebration.
     </p>
 
-    <div class="services-grid">
-      {% for service in services %}
-      <div class="service-card" data-aos="zoom-in" data-aos-delay="{{ forloop.counter0|add:100 }}">
-        <div class="service-img">
-          <img src="{{ service.image.url }}" alt="{{ service.name }}">
+    <!-- SERVICE SECTIONS -->
+    {% for section, services in grouped_services.items %}
+    <div class="service-category">
+
+      <h2 class="category-title" data-aos="fade-up">
+        {{ section }}
+      </h2>
+
+      <div class="services-grid">
+        {% for service in services %}
+        <div class="service-card" data-aos="zoom-in">
+
+          <!-- ICON -->
+          <div class="service-icon">
+            <i class="{{ service.icon|default:'fa-solid fa-star' }}" aria-hidden="true"></i>
+          </div>
+
+          <!-- TITLE -->
+          <h3 class="service-title">
+            {{ service.title }}
+          </h3>
+
+          <!-- DESCRIPTION -->
+          <p class="service-description clamped">
+            {{ service.description }}
+          </p>
+
+          <!-- READ MORE (JS will auto show/hide) -->
+          <button
+            class="read-more-btn"
+            type="button"
+            hidden
+            aria-expanded="false">
+            Read More
+          </button>
+
         </div>
-        <div class="service-content">
-          <h3>{{ service.name }}</h3>
-          <p>{{ service.description }}</p>
-        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+
     </div>
+    {% endfor %}
+
   </div>
 </section>
 {% endblock %}

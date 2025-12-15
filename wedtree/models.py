@@ -224,18 +224,29 @@ class About(models.Model):
 # =======================
 # SERVICES
 # =======================
+from django.db import models
+
 class Service(models.Model):
-    title = models.CharField(max_length=100)
+    section = models.CharField(
+        max_length=120,
+        help_text="Main service category, e.g. Wedding Stationery & Design"
+    )
+    title = models.CharField(max_length=120)
     description = models.TextField()
-    image = CloudinaryField("image")
+    icon = models.CharField(
+        max_length=60,
+        help_text="FontAwesome class, e.g. fa-solid fa-ring"
+    )
+    order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
+        ordering = ['order']
         verbose_name = "Service"
         verbose_name_plural = "Services"
 
     def __str__(self):
-        return self.title
+        return f"{self.section} – {self.title}"
 
 
 # =======================

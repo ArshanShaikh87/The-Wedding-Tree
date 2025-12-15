@@ -151,7 +151,7 @@ a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(212,17
 }
 
 .highlight-card:hover {
-  background: var(--gold);
+  background: var(--light-grey);
   color: var(--white);
   transform: translateY(-8px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -166,7 +166,7 @@ a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(212,17
 }
 
 .highlight-card:hover .icon {
-  color: var(--white);
+  color: var(--gold);
   transform: scale(1.1);
 }
 
@@ -181,7 +181,7 @@ a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(212,17
 }
 
 .highlight-card:hover h3 {
-  color: var(--white);
+  color: var(--black);
 }
 
 /* Description */
@@ -194,7 +194,7 @@ a:focus, button:focus, input:focus, textarea:focus{outline:3px solid rgba(212,17
 }
 
 .highlight-card:hover p {
-  color: var(--white);
+  color: var(--black);
 }
 
 /* Gold Gradient Overlay */

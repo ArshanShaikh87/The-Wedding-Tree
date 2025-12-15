@@ -11,8 +11,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 import os
 import dj_database_url
+from decouple import config
+
 
 # import os
 # from decouple import config
@@ -30,13 +35,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-$tiv0r-+ls8rz^4w2#801eue8o@q4g(1laocu#2n!ca$0(fzg5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['127.0.0.1','localhost','10.226.64.103',]
 
 
 # Application definition
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost','.vercel.app']
+
 
 INSTALLED_APPS = [
     'colorfield',
@@ -48,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'cloudinary',
     'wedtree',
     
     
@@ -149,6 +156,21 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # Media (optional for later uploads)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# =========================
+# CLOUDINARY CONFIG
+# =========================
+
+CLOUDINARY_URL = config("CLOUDINARY_URL", default=None)
+
+cloudinary.config(
+    cloud_name = "dt2xkqgcq",
+    api_key ="382983154387968",
+    api_secret="rTH-h-Wdkf4xhuvn7G6uStv6FII",
+    secure=True
+)
+
+
 
 # WhiteNoise static optimization
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',"django.contrib.staticfiles.storage.menifest.StaticfilesStorage"

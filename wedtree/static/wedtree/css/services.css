@@ -1,80 +1,276 @@
+/* ==========================================
+   🌟 Services Section (Luxury Style)
+   ========================================== */
+
 .services-section {
-  padding: 100px 10%;
-  background-color: #fffaf5;
+  background: linear-gradient(180deg, var(--light-grey) 0%, var(--white) 100%);
+  padding: 100px 0;
   text-align: center;
-  font-family: 'Poppins', sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Page Heading */
 .section-title {
-  font-size: 2.5rem;
-  color: #d4af37;
-  margin-bottom: 10px;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 2.6rem;
+  color: var(--gold);
+  font-weight: 600;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  
 }
 
 .section-subtitle {
-  color: #555;
+  max-width: 680px;
+  margin: 0 auto 90px;
   font-size: 1rem;
-  max-width: 600px;
-  margin: 0 auto 60px;
-  line-height: 1.6;
+  color: var(--champagne);
+  line-height: 1.7;
 }
+
+/* ==========================================
+   📂 Service Category
+   ========================================== */
+
+.service-category {
+  margin-bottom: 90px;
+}
+
+.category-title {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  color: var(--gold);
+  margin-bottom: 45px;
+  position: relative;
+}
+
+.category-title::after {
+  content: "";
+  display: block;
+  width: 70px;
+  height: 3px;
+  background: var(--gold);
+  margin: 14px auto 0;
+  border-radius: 3px;
+}
+
+/* ==========================================
+   🔲 Services Grid
+   ========================================== */
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 35px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
+/* ==========================================
+   🃏 Service Card
+   ========================================== */
+
 .service-card {
-  background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  background: var(--white);
+  border: 1px solid var(--gold);
+  border-radius: 18px;
+  padding: 40px 28px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+  position: relative;
   overflow: hidden;
-  transition: all 0.3s ease;
-  cursor: pointer;
+  cursor: default;
+  will-change: transform;
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 360px;
 }
 
 .service-card:hover {
+  background: var(--light-grey); 
   transform: translateY(-8px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18);
 }
 
-.service-img img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  border-bottom: 3px solid #d4af37;
+/* ==========================================
+   ⭐ Icon
+   ========================================== */
+
+.service-icon {
+  font-size: 46px;
+  color: var(--gold);
+  margin-bottom: 20px;
+  transition: color 0.4s ease, transform 0.4s ease;
 }
 
-.service-content {
-  padding: 20px;
+.service-card:hover .service-icon {
+  color: var(--gold);
+  transform: scale(1.1);
 }
 
-.service-content h3 {
-  color: #222;
-  font-size: 1.3rem;
+/* ==========================================
+   📝 Title & Description
+   ========================================== */
+
+.service-title {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
   font-weight: 600;
-  margin-bottom: 10px;
+  color: var(--black);
+  margin-bottom: 12px;
+  transition: color 0.3s ease;
+  text-align: left;
 }
 
-.service-content p {
-  color: #666;
-  font-size: 0.95rem;
+.service-description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--black);
   line-height: 1.6;
+  text-align: left;
+
+  flex-grow: 1;
+  overflow: hidden;
+
+  transition: color 0.3s ease, max-height 0.4s ease;
 }
 
-/* ✅ Responsive Design */
-@media (max-width: 768px) {
-  .services-section {
-    padding: 60px 5%;
-  }
+.service-card:hover .service-title,
+.service-card:hover .service-description {
+  color: var(--black);
+}
 
+/* ==========================================
+   ✨ Gold Overlay
+   ========================================== */
+
+.service-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 175, 55, 0.18),
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* ==========================================
+   🌠 Shine Effect
+   ========================================== */
+
+.service-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 100%
+  );
+  transform: skewX(-25deg);
+  transition: 0.8s ease-in-out;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.service-card:hover::after {
+  left: 125%;
+}
+
+/* ==========================================
+   ✂️ Text Clamp (Warning-free)
+   ========================================== */
+
+.service-description.clamped {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+
+  line-clamp: 4; /* future compatibility */
+  overflow: hidden;
+}
+
+/* ==========================================
+   🔘 Read More Button
+   ========================================== */
+
+.read-more-btn {
+  margin-top: 18px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--gold);
+  background: none;
+  border: none;
+  cursor: pointer;
+  align-self: center;
+  transition: color 0.3s ease;
+}
+
+.read-more-btn:hover {
+  color: var(--black);
+}
+
+/* ==========================================
+   📱 Responsive
+   ========================================== */
+
+@media (max-width: 992px) {
   .section-title {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 
-  .service-content p {
-    font-size: 0.9rem;
+  .category-title {
+    font-size: 1.3rem;
+  }
+
+  .service-card {
+    min-height: 300px;
+    padding: 22px 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-subtitle {
+    margin-bottom: 70px;
+  }
+
+  .services-grid {
+    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .service-icon {
+    font-size: 44px;
+  }
+
+  .service-title {
+    font-size: 1rem;
+  }
+
+  .service-description {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .services-grid {
+    grid-template-columns: 1fr;
   }
 }

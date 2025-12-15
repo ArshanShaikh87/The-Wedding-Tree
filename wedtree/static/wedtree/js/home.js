@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 1. AOS INITIALIZATION
   // ==========================================================
   try {
-    if (AOS) AOS.init({ duration: 800, once: true });
+    if (AOS) AOS.init({ duration: 700, easing: "ease-out-cubic",
+  once: true,once: true });
   } catch (e) {
     console.warn("AOS not loaded");
   }
