@@ -162,6 +162,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from collections import defaultdict
+from .models import Gallery, GalleryCategory
 
 from .models import (
     Contact, ContactSettings,
@@ -471,5 +472,17 @@ def services(request):
     })
 
 def gallery(request):
-    gallery_items = Gallery.objects.all().order_by('-uploaded_at')
-    return render(request, 'wedtree/gallery.html', {'gallery_items': gallery_items})
+    # All categories (for dynamic buttons)
+    categories = GalleryCategory.objects.all()
+
+    # All gallery items (images + videos together)
+    gallery_items = (
+        Gallery.objects
+        .select_related('category')
+        .order_by('-uploaded_at')
+    )
+
+    return render(request, 'wedtree/gallery.html', {
+        'categories': categories,
+        'gallery_items': gallery_items,
+    })

@@ -7,6 +7,7 @@ from .models import Gallery
 from .models import Contact, ContactSettings
 from .models import HeroSection, Highlight,GalleryPreviewItem
 from .models import GalleryPreviewSettings
+from .models import GalleryCategory
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
@@ -55,6 +56,12 @@ class GalleryAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('title',)
     ordering = ('-uploaded_at',)
+    
+@admin.register(GalleryCategory)
+class GalleryCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'order')
+    prepopulated_fields = {"slug": ("name",)}
+    ordering = ('order',)
     
 @admin.register(GalleryPreviewItem)
 class GalleryPreviewItemAdmin(admin.ModelAdmin):

@@ -1,188 +1,473 @@
-// gallery.js — controls gallery lightbox, video controls, filters, protections
-document.addEventListener('DOMContentLoaded', () => {
-  const grid = document.getElementById('galleryGrid');
-  const items = Array.from(document.querySelectorAll('.gallery-item'));
+// // gallery.js — category + media filtering + lightbox + video controls
+// document.addEventListener('DOMContentLoaded', () => {
 
-  // FILTERING
-  const filterBtns = Array.from(document.querySelectorAll('.filter-btn'));
-  function applyFilter(filter) {
-    filterBtns.forEach(b => b.classList.toggle('active', b.dataset.filter === filter));
-    items.forEach(it => {
-      const cat = it.dataset.category || 'other';
-      it.style.display = (filter === 'all' || cat === filter) ? '' : 'none';
+//   const items = Array.from(document.querySelectorAll('.gallery-item'));
+//   const categoryBtns = Array.from(document.querySelectorAll('.filter-btn'));
+//   const mediaBtns = Array.from(document.querySelectorAll('.media-btn'));
+
+//   let activeCategory = 'all';
+//   let activeMedia = 'all';
+
+//   /* =========================
+//      FILTER LOGIC (CORE)
+//      ========================= */
+//   function applyFilters() {
+//     items.forEach(item => {
+//       const itemCategory = item.dataset.category;
+//       const itemType = item.dataset.type;
+
+//       const categoryMatch =
+//         activeCategory === 'all' || itemCategory === activeCategory;
+
+//       const mediaMatch =
+//         activeMedia === 'all' || itemType === activeMedia;
+
+//       item.style.display = (categoryMatch && mediaMatch)
+//         ? 'block'
+//         : 'none';
+//     });
+//   }
+
+//   /* =========================
+//      CATEGORY BUTTONS
+//      ========================= */
+//   categoryBtns.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//       categoryBtns.forEach(b => b.classList.remove('active'));
+//       btn.classList.add('active');
+
+//       activeCategory = btn.dataset.filter;
+//       applyFilters();
+//     });
+//   });
+
+//   /* =========================
+//      MEDIA BUTTONS
+//      ========================= */
+//   mediaBtns.forEach(btn => {
+//     btn.addEventListener('click', () => {
+//       mediaBtns.forEach(b => b.classList.remove('active'));
+//       btn.classList.add('active');
+
+//       activeMedia = btn.dataset.media;
+//       applyFilters();
+//     });
+//   });
+
+//   // default state
+//   applyFilters();
+
+//   /* =========================
+//      LIGHTBOX ELEMENTS
+//      ========================= */
+//   const lb = document.getElementById('mediaLightbox');
+//   const lbImage = document.getElementById('lbImage');
+//   const lbVideo = document.getElementById('lbVideo');
+//   const lbTitle = document.getElementById('lbTitle');
+//   const lbCategory = document.getElementById('lbCategory');
+//   const lbPlay = document.getElementById('lbPlay');
+//   const lbProgress = document.getElementById('lbProgress');
+//   const lbFullscreen = document.getElementById('lbFullscreen');
+//   const lbClose = document.querySelector('.lb-close');
+
+//   /* =========================
+//      UTILITY
+//      ========================= */
+//   function pauseAllExcept(exceptVideo) {
+//     document.querySelectorAll('video').forEach(v => {
+//       if (v !== exceptVideo) {
+//         try { v.pause(); } catch (e) {}
+//       }
+//     });
+//   }
+
+//   /* =========================
+//      ITEM EVENTS
+//      ========================= */
+//   items.forEach(item => {
+//     const mediaType = item.dataset.type;
+//     const src = item.dataset.src;
+//     const title = item.querySelector('.overlay-text h3')?.innerText || '';
+//     const category = item.querySelector('.overlay-text .cat')?.innerText || '';
+
+//     const playBtn = item.querySelector('.play-pause');
+//     const fullscreenBtn = item.querySelector('.fullscreen');
+//     const inlineProgress = item.querySelector('.progress-bar');
+//     const videoEl = item.querySelector('video');
+
+//     /* -------- VIDEO CONTROLS (VIDEOS ONLY) -------- */
+//     if (mediaType === 'video' && playBtn && videoEl) {
+
+//       playBtn.addEventListener('click', e => {
+//         e.stopPropagation();
+//         if (videoEl.paused) {
+//           pauseAllExcept(videoEl);
+//           videoEl.play();
+//           playBtn.textContent = '⏸';
+//         } else {
+//           videoEl.pause();
+//           playBtn.textContent = '▶';
+//         }
+//       });
+
+//       videoEl.addEventListener('timeupdate', () => {
+//         if (inlineProgress && videoEl.duration) {
+//           inlineProgress.value =
+//             (videoEl.currentTime / videoEl.duration) * 100;
+//         }
+//       });
+
+//       videoEl.addEventListener('ended', () => {
+//         playBtn.textContent = '▶';
+//       });
+
+//       fullscreenBtn?.addEventListener('click', e => {
+//         e.stopPropagation();
+//         const fs =
+//           videoEl.requestFullscreen ||
+//           videoEl.webkitRequestFullscreen ||
+//           videoEl.webkitEnterFullscreen;
+//         if (fs) fs.call(videoEl);
+//       });
+//     }
+
+//     /* -------- OPEN LIGHTBOX -------- */
+//     item.addEventListener('click', e => {
+//       if (e.target.closest('.inline-controls')) return;
+
+//       lb.classList.remove('hidden');
+//       document.body.classList.add('lightbox-open');
+
+//       lbTitle.textContent = title;
+//       lbCategory.textContent = category;
+//       lbPlay.textContent = '▶';
+//       lbProgress.value = 0;
+
+//       if (mediaType === 'image') {
+//         lbVideo.pause();
+//         lbVideo.style.display = 'none';
+//         lbImage.src = src;
+//         lbImage.style.display = 'block';
+//       } else {
+//         lbImage.style.display = 'none';
+//         lbVideo.src = src;
+//         lbVideo.currentTime = 0;
+//         lbVideo.style.display = 'block';
+//         lbVideo.pause();
+//       }
+
+//       pauseAllExcept(null);
+//     });
+//   });
+
+//   /* =========================
+//      LIGHTBOX CONTROLS
+//      ========================= */
+//   function closeLightbox() {
+//     lb.classList.add('hidden');
+//     document.body.classList.remove('lightbox-open');
+//     lbVideo.pause();
+//     lbVideo.src = '';
+//     lbImage.src = '';
+//   }
+
+//   lbClose.addEventListener('click', closeLightbox);
+
+//   document.addEventListener('keydown', e => {
+//     if (e.key === 'Escape') closeLightbox();
+//   });
+
+//   lb.addEventListener('click', e => {
+//     if (e.target === lb) closeLightbox();
+//   });
+
+//   lbPlay.addEventListener('click', () => {
+//     if (lbVideo.style.display !== 'block') return;
+//     if (lbVideo.paused) {
+//       pauseAllExcept(lbVideo);
+//       lbVideo.play();
+//       lbPlay.textContent = '⏸';
+//     } else {
+//       lbVideo.pause();
+//       lbPlay.textContent = '▶';
+//     }
+//   });
+
+//   lbVideo.addEventListener('timeupdate', () => {
+//     if (lbVideo.duration) {
+//       lbProgress.value =
+//         (lbVideo.currentTime / lbVideo.duration) * 100;
+//     }
+//   });
+
+//   lbFullscreen.addEventListener('click', () => {
+//     const fs =
+//       lbVideo.requestFullscreen ||
+//       lbVideo.webkitRequestFullscreen ||
+//       lbVideo.webkitEnterFullscreen;
+//     if (fs) fs.call(lbVideo);
+//   });
+
+//   /* =========================
+//      BASIC DOWNLOAD DETERRENT
+//      ========================= */
+//   document.addEventListener('contextmenu', e => {
+//     if (e.target.tagName === 'IMG' || e.target.tagName === 'VIDEO') {
+//       e.preventDefault();
+//     }
+//   });
+
+//   document.addEventListener('dragstart', e => e.preventDefault());
+// });
+
+// gallery.js — category + media filtering + image/video lightbox (FINAL)
+
+document.addEventListener("DOMContentLoaded", () => {
+  const items = Array.from(document.querySelectorAll(".gallery-item"));
+
+  /* =========================
+     CATEGORY FILTER
+     ========================= */
+  const categoryBtns = document.querySelectorAll(".filter-btn");
+  let activeCategory = "all";
+
+  function applyFilters() {
+    items.forEach((item) => {
+      const itemCategory = item.dataset.category;
+      const itemType = item.dataset.type;
+
+      const categoryMatch =
+        activeCategory === "all" || itemCategory === activeCategory;
+      const mediaMatch = activeMedia === "all" || itemType === activeMedia;
+
+      item.style.display = categoryMatch && mediaMatch ? "block" : "none";
     });
   }
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => applyFilter(btn.dataset.filter));
+
+  categoryBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      categoryBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeCategory = btn.dataset.filter;
+      applyFilters();
+    });
   });
 
-  // LIGHTBOX ELEMENTS
-  const lb = document.getElementById('mediaLightbox');
-  const lbImage = document.getElementById('lbImage');
-  const lbVideo = document.getElementById('lbVideo');
-  const lbTitle = document.getElementById('lbTitle');
-  const lbCategory = document.getElementById('lbCategory');
-  const lbPlay = document.getElementById('lbPlay');
-  const lbProgress = document.getElementById('lbProgress');
-  const lbFullscreen = document.getElementById('lbFullscreen');
-  const lbClose = document.querySelector('.lb-close');
+  /* =========================
+     MEDIA FILTER (Images / Videos)
+     ========================= */
+  const mediaBtns = document.querySelectorAll(".media-btn");
+  let activeMedia = "all";
 
-  // Utility: pause all playing videos on page except optional
-  function pauseAllExcept(exceptVideo) {
-    document.querySelectorAll('video').forEach(v => {
-      if (v !== exceptVideo) {
-        try { v.pause(); } catch(e){/*ignore*/ }
+  mediaBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      mediaBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      activeMedia = btn.dataset.media;
+      applyFilters();
+    });
+  });
+
+  /* =========================
+     LIGHTBOX ELEMENTS
+     ========================= */
+  const lb = document.getElementById("mediaLightbox");
+  const lbImage = document.getElementById("lbImage");
+  const lbVideo = document.getElementById("lbVideo");
+  const lbPlay = document.getElementById("lbPlay");
+  const lbProgress = document.getElementById("lbProgress");
+  const lbFullscreen = document.getElementById("lbFullscreen");
+  const lbClose = document.querySelector(".lb-close");
+
+  const zoomInBtn = document.getElementById("imgZoomIn");
+  const zoomOutBtn = document.getElementById("imgZoomOut");
+
+  let zoomLevel = 1;
+
+  /* =========================
+     UTIL
+     ========================= */
+  function pauseAllVideos(except = null) {
+    document.querySelectorAll("video").forEach((v) => {
+      if (v !== except) {
+        try {
+          v.pause();
+        } catch (e) {}
       }
     });
   }
 
-  // Handle clicking items to open lightbox (but skip clicks on controls)
-  items.forEach(item => {
-    const mediaType = item.dataset.type;
-    const src = item.dataset.src;
-    const title = item.querySelector('.overlay-text h3')?.innerText || '';
-    const category = item.querySelector('.overlay-text .cat')?.innerText || '';
+  /* =========================
+     GRID VIDEO CONTROLS
+     ========================= */
+  items.forEach((item) => {
+    const playBtn = item.querySelector(".play-pause");
+    const progress = item.querySelector(".progress-bar");
+    const video = item.querySelector("video");
 
-    // inline control buttons
-    const playBtn = item.querySelector('.play-pause');
-    const fullscreenBtn = item.querySelector('.fullscreen');
-    const inlineProgress = item.querySelector('.progress-bar');
-    const videoEl = item.querySelector('video');
-
-    // play/pause inline behavior (and pause others)
-    if (playBtn && videoEl) {
-      playBtn.addEventListener('click', (e) => {
+    if (playBtn && video) {
+      playBtn.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (videoEl.paused) {
-          pauseAllExcept(videoEl);
-          videoEl.play();
-          playBtn.textContent = '⏸';
+        if (video.paused) {
+          pauseAllVideos(video);
+          video.play();
+          playBtn.textContent = "⏸";
         } else {
-          videoEl.pause();
-          playBtn.textContent = '▶';
+          video.pause();
+          playBtn.textContent = "▶";
         }
       });
 
-      // update inline progress
-      videoEl.addEventListener('timeupdate', () => {
-        if (inlineProgress && videoEl.duration) {
-          inlineProgress.value = (videoEl.currentTime / videoEl.duration) * 100;
+      video.addEventListener("timeupdate", () => {
+        if (progress && video.duration) {
+          progress.value = (video.currentTime / video.duration) * 100;
         }
       });
 
-      videoEl.addEventListener('ended', () => {
-        if (playBtn) playBtn.textContent = '▶';
+      video.addEventListener("ended", () => {
+        playBtn.textContent = "▶";
       });
     }
+  });
 
-    // fullscreen inline
-    if (fullscreenBtn && videoEl) {
-      fullscreenBtn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        if (videoEl.requestFullscreen) videoEl.requestFullscreen();
-      });
-    }
+  /* =========================
+     OPEN LIGHTBOX
+     ========================= */
+  items.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      if (e.target.closest(".inline-controls")) return;
 
-    // clicking the tile opens lightbox unless click was on control
-    item.addEventListener('click', (ev) => {
-      const clickedControl = ev.target.closest('.inline-controls') || ev.target.closest('.play-pause') || ev.target.closest('.fullscreen') || ev.target.closest('.btn');
-      if (clickedControl) return;
+      const type = item.dataset.type;
+      const src = item.dataset.src;
 
-      // open lightbox
-      lb.classList.remove('hidden');
-      lb.setAttribute('aria-hidden', 'false');
-      lbTitle.textContent = title;
-      lbCategory.textContent = category;
+      lb.classList.remove("hidden", "image-mode", "video-mode");
+      document.body.classList.add("lightbox-open");
 
-      if (mediaType === 'image') {
-        lbVideo.style.display = 'none';
-        lbVideo.pause && lbVideo.pause();
+      pauseAllVideos();
+
+      if (type === "image") {
+        // IMAGE MODE
+        lb.classList.add("image-mode");
+
+        lbVideo.pause();
+        lbVideo.style.display = "none";
+
+        zoomLevel = 1;
+        lbImage.style.transform = "scale(1)";
         lbImage.src = src;
-        lbImage.style.display = 'block';
-      } else if (mediaType === 'video') {
-        lbImage.style.display = 'none';
-        lbVideo.style.display = 'block';
+        lbImage.style.display = "block";
+      } else {
+        // VIDEO MODE
+        lb.classList.add("video-mode");
+
+        lbImage.style.display = "none";
+
         lbVideo.src = src;
         lbVideo.currentTime = 0;
+        lbVideo.style.display = "block";
         lbVideo.pause();
+        lbPlay.textContent = "▶";
         lbProgress.value = 0;
       }
-      pauseAllExcept(null);
     });
   });
 
-  // Lightbox controls
-  lbClose.addEventListener('click', closeLightbox);
-  function closeLightbox(){
-    lb.classList.add('hidden');
-    lb.setAttribute('aria-hidden', 'true');
-    lbVideo.pause();
-    lbVideo.src = '';
-    lbImage.src = '';
+  /* =========================
+     IMAGE ZOOM CONTROLS
+     ========================= */
+  if (zoomInBtn) {
+    zoomInBtn.addEventListener("click", () => {
+      zoomLevel += 0.2;
+      lbImage.style.transform = `scale(${zoomLevel})`;
+    });
   }
 
-  // LB Play/pause
-  lbPlay.addEventListener('click', () => {
-    if (lbVideo.style.display !== 'block') return;
+  if (zoomOutBtn) {
+    zoomOutBtn.addEventListener("click", () => {
+      zoomLevel = Math.max(1, zoomLevel - 0.2);
+      lbImage.style.transform = `scale(${zoomLevel})`;
+    });
+  }
+
+  /* =========================
+     VIDEO CONTROLS (LIGHTBOX)
+     ========================= */
+  lbPlay.addEventListener("click", () => {
     if (lbVideo.paused) {
-      pauseAllExcept(lbVideo);
+      pauseAllVideos(lbVideo);
       lbVideo.play();
-      lbPlay.textContent = '⏸';
+      lbPlay.textContent = "⏸";
     } else {
       lbVideo.pause();
-      lbPlay.textContent = '▶';
+      lbPlay.textContent = "▶";
     }
   });
 
-  // LB progress update
-  lbVideo.addEventListener('timeupdate', () => {
-    if (lbVideo.duration) lbProgress.value = (lbVideo.currentTime / lbVideo.duration) * 100;
+  lbVideo.addEventListener("timeupdate", () => {
+    if (lbVideo.duration) {
+      lbProgress.value = (lbVideo.currentTime / lbVideo.duration) * 100;
+    }
   });
 
-  // LB fullscreen
-  lbFullscreen.addEventListener('click', () => {
-    if (lbVideo.requestFullscreen) lbVideo.requestFullscreen();
+  lbFullscreen.addEventListener("click", () => {
+    const fs =
+      lbVideo.requestFullscreen ||
+      lbVideo.webkitRequestFullscreen ||
+      lbVideo.webkitEnterFullscreen;
+    if (fs) fs.call(lbVideo);
   });
 
-  // close on ESC
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
+  /* =========================
+     CLOSE LIGHTBOX
+     ========================= */
+  function closeLightbox() {
+    lb.classList.add("hidden");
+    document.body.classList.remove("lightbox-open");
+
+    lbVideo.pause();
+    lbVideo.src = "";
+    lbImage.src = "";
+  }
+
+  lbClose.addEventListener("click", closeLightbox);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
   });
 
-  // close when clicking backdrop
-  lb.addEventListener('click', (e) => {
+  lb.addEventListener("click", (e) => {
     if (e.target === lb) closeLightbox();
   });
 
-  // Ensure only one video plays at a time (global)
-  document.addEventListener('play', (e) => {
-    if (e.target.tagName === 'VIDEO') {
-      pauseAllExcept(e.target);
-    }
-  }, true);
-
-  // DOWNLOAD PROTECTION
-  document.addEventListener('contextmenu', e => e.preventDefault());
-  document.addEventListener('keydown', e => {
-    // block ctrl+s, ctrl+u, ctrl+shift+i
-    if (e.ctrlKey && (e.key === 's' || e.key === 'u' || (e.shiftKey && e.key === 'I'))) e.preventDefault();
-  });
-  document.addEventListener('dragstart', e => e.preventDefault());
-  // set attributes on media elements (in case browser shows download)
-  document.querySelectorAll('img, video').forEach(m => {
-    m.setAttribute('oncontextmenu', 'return false');
-    m.setAttribute('draggable', 'false');
-    if (m.tagName.toLowerCase() === 'video') {
-      m.setAttribute('controlsList', 'nodownload nofullscreen noremoteplayback');
+  /* =========================
+     BASIC DOWNLOAD DETERRENT
+     ========================= */
+  document.addEventListener("contextmenu", (e) => {
+    if (e.target.tagName === "IMG" || e.target.tagName === "VIDEO") {
+      e.preventDefault();
     }
   });
 
-  // small safety: remove src attributes from images/videos when not visible (reduce direct links)
-  // (keeps media visible in DOM but can help avoid accidental right-click -> open in new tab)
-  function manageMediaSrcs() {
-    // keep src as is; if you want extra protection, you could load via blob URLs from server-side proxy — out of scope here.
+  document.addEventListener("dragstart", (e) => e.preventDefault());
+
+  // initial
+  applyFilters();
+});
+
+/* =========================
+   MOBILE IMAGE ZOOM
+   ========================= */
+let lastTap = 0;
+
+lbImage.addEventListener("touchend", (e) => {
+  const currentTime = new Date().getTime();
+  const tapLength = currentTime - lastTap;
+
+  if (tapLength < 300 && tapLength > 0) {
+    // Double tap
+    zoomLevel = zoomLevel === 1 ? 2 : 1;
+    lbImage.style.transform = `scale(${zoomLevel})`;
   }
-  // initial filter state
-  applyFilter('all');
 
+  lastTap = currentTime;
 });

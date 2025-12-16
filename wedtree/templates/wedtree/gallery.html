@@ -1,80 +1,94 @@
-{% extends 'wedtree/base.html' %}
-{% load static %}
+{% extends 'wedtree/base.html' %} 
 
-{% block title %}Moments We’ve Crafted — Gallery | The Wedding Tree{% endblock %}
-
-{% block meta %}
-<meta name="description" content="Explore our gallery of elegant weddings, mehendi, haldi and reception setups crafted by The Wedding Tree. Photos & short videos showcasing decor transformations and event moments.">
-<meta name="keywords" content="wedding gallery, wedding photos, event decor, The Wedding Tree, haldi decor, mehendi, reception">
-<meta property="og:title" content="The Wedding Tree — Gallery">
-<meta property="og:description" content="Discover beautiful real weddings and events curated by The Wedding Tree.">
-<meta property="og:image" content="{% static 'wedtree/images/gallery-preview.jpg' %}">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-
-<!-- Basic JSON-LD for Gallery (search engines) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "The Wedding Tree Gallery",
-  "description": "Photos and videos of weddings, mehendi, haldi and receptions by The Wedding Tree."
-}
-</script>
-{% endblock %}
-
-{% block css %}
-<link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}">
-{% endblock %}
-
-{% block content %}
+{% load static %} {% block title %}Moments We’ve
+Crafted — Gallery | The Wedding Tree{% endblock %} {% block meta %}
+<meta
+  name="description"
+  content="Explore our gallery of weddings, corporate events, mehendi, haldi and more crafted by The Wedding Tree."
+/>
+<meta property="og:title" content="The Wedding Tree — Gallery" />
+<meta property="og:type" content="website" />
+{% endblock %} {% block css %}
+<link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}" />
+{% endblock %} {% block content %}
 <section class="gallery-section" id="gallery">
   <div class="container small">
     <h2 class="section-title">Moments We’ve Crafted</h2>
-    <p class="section-subtitle">A curated collection of real events — photos and short video reels that show our decor transformations and styles.</p>
+    <p class="section-subtitle">
+      A curated collection of real events — photos and short video reels
+      showcasing our decor transformations.
+    </p>
 
-    <!-- Filter Buttons -->
-    <div class="gallery-filters" role="tablist" aria-label="Gallery filters">
+    <!-- =========================
+         CATEGORY FILTER BUTTONS
+         ========================= -->
+    <div class="gallery-filters" role="tablist" aria-label="Gallery Categories">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="wedding">Weddings</button>
-      <button class="filter-btn" data-filter="mehendi">Mehendi</button>
-      <button class="filter-btn" data-filter="haldi">Haldi</button>
-      <button class="filter-btn" data-filter="reception">Receptions</button>
-      <button class="filter-btn" data-filter="other">Other</button>
+      {% for category in categories %}
+      <button class="filter-btn" data-filter="{{ category.slug }}">
+        {{ category.name }}
+      </button>
+      {% endfor %}
     </div>
 
-    <!-- Grid -->
+    <!-- =========================
+         MEDIA FILTER TABS
+         ========================= -->
+    <div class="media-filters" role="tablist" aria-label="Media Type">
+      <button class="media-btn active" data-media="all">All</button>
+      <button class="media-btn" data-media="image">Images</button>
+      <button class="media-btn" data-media="video">Videos</button>
+    </div>
+
+    <!-- =========================
+         GALLERY GRID
+         ========================= -->
     <div class="gallery-grid" id="galleryGrid" aria-live="polite">
       {% for item in gallery_items %}
-      <div class="gallery-item"
-           data-category="{{ item.category|default:'other' }}"
-           data-type="{% if item.image %}image{% elif item.video %}video{% else %}unknown{% endif %}"
-           data-src="{% if item.image %}{{ item.image.url }}{% elif item.video %}{{ item.video.url }}{% endif %}">
+      <div
+        class="gallery-item"
+        data-category="{{ item.category.slug }}"
+        data-type="{% if item.image %}image{% else %}video{% endif %}"
+        data-src="{% if item.image %}{{ item.image.url }}{% else %}{{ item.video.url }}{% endif %}"
+      >
         <div class="media-wrapper">
           {% if item.image %}
-            <img class="gallery-image" src="{{ item.image.url }}" alt="{{ item.title }}" loading="lazy" decoding="async" />
-          {% elif item.video %}
-            <video class="gallery-video" preload="metadata" muted playsinline webkit-playsinline>
-              <source src="{{ item.video.url }}" type="video/mp4">
-              Your browser does not support the video element.
-            </video>
+          <img
+            class="gallery-image"
+            src="{{ item.image.url }}"
+            alt="{{ item.title }}"
+            loading="lazy"
+            decoding="async"
+          />
+          {% else %}
+          <video
+            class="gallery-video"
+            preload="metadata"
+            muted
+            playsinline
+            webkit-playsinline
+          >
+            <source src="{{ item.video.url }}" type="video/mp4" />
+          </video>
           {% endif %}
 
           <!-- watermark -->
           <span class="watermark">© The Wedding Tree</span>
 
-          <!-- overlay info -->
+          <!-- overlay -->
           <div class="overlay">
             <div class="overlay-text">
               <h3>{{ item.title }}</h3>
-              <span class="cat">{{ item.get_category_display|default:item.category }}</span>
+              <span class="cat">{{ item.category.name }}</span>
             </div>
 
             {% if item.video %}
-            <!-- inline controls for grid video -->
+            <!-- INLINE VIDEO CONTROLS (GRID ONLY) -->
             <div class="inline-controls">
-              <button class="btn play-pause" aria-label="Play or pause video">▶</button>
-              <progress class="progress-bar" value="0" max="100" aria-hidden="true"></progress>
+              <button class="btn play-pause" aria-label="Play or pause video">
+                ▶
+              </button>
+              <progress class="progress-bar" value="0" max="100"></progress>
               <button class="btn fullscreen" aria-label="Fullscreen">⛶</button>
             </div>
             {% endif %}
@@ -82,22 +96,37 @@
         </div>
       </div>
       {% empty %}
-        <p class="no-items">No gallery items found yet — check back soon.</p>
+      <p class="no-items">No gallery items found.</p>
       {% endfor %}
     </div>
   </div>
 
-  <!-- Lightbox -->
-  <div id="mediaLightbox" class="lightbox hidden" aria-hidden="true" role="dialog" aria-label="Media preview">
+  <!-- =========================
+       LIGHTBOX (IMAGE + VIDEO MODES)
+       ========================= -->
+  <div
+    id="mediaLightbox"
+    class="lightbox hidden"
+    aria-hidden="true"
+    role="dialog"
+  >
     <button class="lb-close" aria-label="Close (Esc)">×</button>
+
     <div class="lb-inner">
-      <img id="lbImage" class="lb-media" src="" alt="" draggable="false" />
-      <video id="lbVideo" class="lb-media" controls controlsList="nodownload nofullscreen noremoteplayback" preload="metadata"></video>
-      <div class="lb-caption">
-        <h4 id="lbTitle"></h4>
-        <p id="lbCategory"></p>
+      <!-- IMAGE -->
+      <img id="lbImage" class="lb-media lb-image" src="" alt="" />
+
+      <!-- VIDEO -->
+      <video id="lbVideo" class="lb-media lb-video" preload="metadata"></video>
+
+      <!-- IMAGE CONTROLS -->
+      <div class="lb-controls lb-image-controls">
+        <button id="imgZoomIn" class="btn" aria-label="Zoom In">＋</button>
+        <button id="imgZoomOut" class="btn" aria-label="Zoom Out">－</button>
       </div>
-      <div class="lb-controls">
+
+      <!-- VIDEO CONTROLS (YouTube style) -->
+      <div class="lb-controls lb-video-controls">
         <button id="lbPlay" class="btn">▶</button>
         <progress id="lbProgress" value="0" max="100"></progress>
         <button id="lbFullscreen" class="btn">⛶</button>
@@ -105,8 +134,6 @@
     </div>
   </div>
 </section>
-{% endblock %}
-
-{% block extra_js %}
+{% endblock %} {% block extra_js %}
 <script src="{% static 'wedtree/js/gallery.js' %}"></script>
 {% endblock %}
