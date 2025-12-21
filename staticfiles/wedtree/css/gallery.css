@@ -1,0 +1,148 @@
+/* ================================
+   The Wedding Tree — Gallery CSS
+   ================================ */
+
+:root{
+  --gold: #D4AF37;
+  --black: #000;
+  --white: #fff;
+  --light: #faf7f5;
+  --muted: #6b6b6b;
+  --champagne: #8C7B6B;
+}
+
+/* container sizing helper (use existing .container too) */
+.container.small { max-width: 1150px; margin: 0 auto; }
+
+/* Section */
+.gallery-section {
+  padding: 60px 5% 100px;
+  background: linear-gradient(180deg, var(--light), #ffffff 60%);
+  color: var(--black);
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight:700;
+  text-align:center;
+}
+
+.section-subtitle {
+  color: var(--champagne);
+  text-align:center;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  line-height:1.6;
+}
+
+/* Filters */
+.gallery-filters {
+  display:flex;
+  gap:10px;
+  justify-content:center;
+  margin-bottom:30px;
+  flex-wrap:wrap;
+}
+
+.filter-btn {
+  border: 1px solid rgba(0,0,0,0.08);
+  background: #fff;
+  padding: 8px 14px;
+  border-radius: 40px;
+  font-weight:600;
+  cursor:pointer;
+  transition: all .25s ease;
+  color: #333;
+}
+.filter-btn.active{
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 6px 18px rgba(212,175,55,0.15);
+}
+
+/* Grid */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+/* Item */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  transition: transform .35s ease, box-shadow .35s ease;
+}
+.gallery-item:hover { transform: translateY(-6px); box-shadow: 0 18px 50px rgba(0,0,0,0.12); }
+
+/* media wrapper */
+.media-wrapper { position: relative; display:block; width:100%; height:100%; }
+.gallery-image, .gallery-video {
+  display:block; width:100%; height:100%; object-fit: cover; max-height:320px;
+  border-radius: 12px;
+}
+
+/* watermark */
+.watermark {
+  position:absolute;
+  bottom:10px; right:12px;
+  color: rgba(255,255,255,0.85);
+  background: linear-gradient(90deg, rgba(0,0,0,0.12), rgba(0,0,0,0.18));
+  padding:4px 8px;
+  border-radius:6px;
+  font-size:13px;
+  font-weight:500;
+  pointer-events:none;
+  z-index:3;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* overlay info */
+.overlay{
+  position:absolute; inset:0; display:flex; flex-direction:column; justify-content:flex-end;
+  color:#fff; padding:14px; gap:10px; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.45) 100%);
+  opacity:0; transition: opacity .25s ease;
+}
+.gallery-item:hover .overlay { opacity:1; }
+
+.overlay-text h3 { margin:0; font-size:1.05rem; color:var(--gold); font-weight:600; }
+.overlay-text .cat { font-size:0.85rem; color: #fff; opacity:0.9; }
+
+/* inline controls (for videos in grid) */
+.inline-controls { display:flex; align-items:center; gap:8px; }
+.btn { background: rgba(0,0,0,0.6); color:#fff; border:none; padding:8px 10px; border-radius:8px; cursor:pointer; }
+.progress-bar { width:100px; height:6px; appearance:none; background: rgba(255,255,255,0.12); border-radius:6px; overflow:hidden; }
+
+/* Lightbox */
+.lightbox {
+  position:fixed; inset:0; display:flex; align-items:center; justify-content:center;
+  background: rgba(0,0,0,0.92); z-index:9999; padding:30px; gap:18px; box-sizing:border-box;
+}
+.lightbox.hidden { display:none; }
+.lb-inner { width:100%; max-width:1200px; max-height:90vh; display:flex; flex-direction:column; align-items:center; gap:14px; }
+.lb-media { max-width:100%; max-height:75vh; border-radius:10px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+.lb-close { position:fixed; top:18px; right:24px; z-index:10010; background:transparent; color:#fff; border:none; font-size:34px; cursor:pointer; }
+.lb-caption { color:#eee; text-align:center; max-width:90%; }
+.lb-controls { display:flex; gap:12px; align-items:center; width:100%; max-width:900px; }
+
+/* small screens */
+@media (max-width:900px){
+  .gallery-image, .gallery-video { max-height:220px; }
+  .progress-bar { width:80px; }
+  .section-title { font-size:1.9rem; }
+  .lb-inner { max-width:92%; }
+}
+
+/* accessibility focus */
+.filter-btn:focus, .btn:focus, .lb-close:focus { outline: 2px solid rgba(212,175,55,0.6); outline-offset:2px; }
+
+/* no-items */
+.no-items { color:var(--muted); padding:40px 0; text-align:center; }

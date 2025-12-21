@@ -1,0 +1,341 @@
+/* =========================================================
+   CONTACT SECTION — CLEAN, ORGANISED, PRODUCTION READY
+========================================================= */
+
+/* ----- Base Section ----- */
+.contact-section {
+    padding: 70px 8%;
+    background: #fff9f5;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-title {
+    text-align: center;
+    color: #d4af37;
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: #555;
+    margin-bottom: 28px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* =========================================================
+   CONTACT WRAPPER
+========================================================= */
+.contact-wrapper {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* =========================================================
+   CONTACT FORM
+========================================================= */
+.contact-form {
+    flex: 1 1 420px;
+    background: #fff;
+    padding: 26px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+    width: 100%;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    border: 1px solid #e6e6e6;
+    font-size: 1rem;
+}
+
+.contact-form textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: #d4af37;
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.08);
+}
+
+/* Button */
+.btn {
+    background: #d4af37;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn:hover {
+    background: #c09e30;
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   CUSTOM SELECT DROPDOWN
+========================================================= */
+.contact-form select {
+    background: #fff;
+    font-size: 15px;
+    font-family: var(--font-body);
+    color: #555;
+    outline: none;
+    cursor: pointer;
+
+    /* Remove default arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    /* Custom arrow icon */
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23D4AF37' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+/* Focus on select */
+.contact-form select:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212,175,55,0.25);
+}
+
+/* =========================================================
+   ERROR MESSAGE
+========================================================= */
+.field { width: 100%; margin-bottom: 15px; }
+
+.error-msg {
+    display: block;
+    color: #d72828;
+    font-size: 0.85rem;
+    margin-top: 4px;
+    min-height: 14px;
+}
+
+/* =========================================================
+   CONTACT INFO SIDE
+========================================================= */
+.contact-info {
+    flex: 1 1 320px;
+    min-width: 280px;
+}
+
+.contact-info h3 {
+    color: #d4af37;
+    margin-bottom: 10px;
+}
+
+.contact-info p {
+    color: var(--champagne);
+    margin-bottom: 8px;
+}
+
+/* Social Links */
+.social-links a {
+    color: #d4af37;
+    font-size: 30px;
+    margin-right: 12px;
+    display: inline-block;
+}
+
+.social-links a:hover {
+    color: #655015;
+}
+
+/* =========================================================
+   MAP BOX
+========================================================= */
+.map-container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 12px;
+    margin: 15px 0;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 280px;
+    border: 0;
+    border-radius: 12px;
+}
+
+/* =========================================================
+   FLOATING WHATSAPP BUTTON
+========================================================= */
+.whatsapp-float {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+
+    background: #25d366;
+    color: #fff;
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    text-decoration: none;
+    z-index: 9999;
+
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.06);
+}
+
+/* =========================================================
+   MESSAGE ALERTS
+========================================================= */
+.messages {
+    max-width: 900px;
+    margin: 10px auto 18px;
+}
+
+.alert {
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.alert-success {
+    background: #e6f8ec;
+    color: #0a6a2b;
+    border: 1px solid rgba(10,106,43,0.08);
+}
+
+.alert-error,
+.alert-danger {
+    background: #ffecec;
+    color: #a60000;
+}
+
+
+/* ==========================
+   PREMIUM MOBILE CONTACT FORM
+   ========================== */
+@media (max-width: 520px) {
+
+  /* Reduce outer spacing */
+  .contact-section {
+      padding: 50px 20px;
+  }
+
+  /* Title & Subtitles */
+  .section-title {
+      font-size: 1.6rem;       /* smaller but premium */
+      margin-bottom: 6px;
+  }
+
+  .section-subtitle {
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.45;
+  }
+
+  /* CONTACT WRAPPER */
+  .contact-wrapper {
+      flex-direction: column;
+      gap: 16px;
+  }
+
+  /* FORM CARD */
+  .contact-form {
+      padding: 18px 16px;           /* reduced padding */
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);  
+      background: #ffffff;
+  }
+
+  /* Inputs & Textarea */
+  .contact-form input,
+  .contact-form select,
+  .contact-form textarea {
+      padding: 10px 12px;          /* smaller height */
+      font-size: 0.95rem;
+      border-radius: 8px;
+      margin-bottom: 10px;
+  }
+
+  .contact-form textarea {
+      min-height: 100px;           /* compact */
+  }
+
+  /* Dropdown Styling */
+  .contact-form select {
+      background-size: 14px;       /* smaller arrow */
+      background-position: right 10px center;
+  }
+
+  /* Submit Button */
+  .contact-form .btn {
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+      border-radius: 10px;
+  }
+
+  /* Contact Info Card */
+  .contact-info {
+      padding: 16px 14px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+  }
+
+  .contact-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+  }
+
+  .contact-info p {
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+  }
+
+  /* Social Icons */
+  .social-links a {
+      font-size: 26px;         /* decent sizing */
+      margin-right: 10px;
+  }
+
+  /* Map */
+  .map-container iframe {
+      height: 200px;
+  }
+
+  /* Floating WhatsApp - bigger on small screens */
+  .whatsapp-float {
+      width: 54px;
+      height: 54px;
+      font-size: 26px;
+  }
+}
