@@ -247,34 +247,49 @@ class Service(models.Model):
 
     def __str__(self):
         return f"{self.section} – {self.title}"
+    
+    
+# =======================
+# GALLERY CATEGORY
+# =======================
+class GalleryCategory(models.Model):
+    name = models.CharField(max_length=50)
+    slug = models.SlugField(unique=True)
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Gallery Category"
+        verbose_name_plural = "Gallery Categories"
+
+    def __str__(self):
+        return self.name
+
+
 
 
 # =======================
 # GALLERY
 # =======================
 class Gallery(models.Model):
-    CATEGORY_CHOICES = [
-        ('wedding', 'Wedding'),
-        ('reception', 'Reception'),
-        ('mehendi', 'Mehendi'),
-        ('haldi', 'Haldi'),
-        ('other', 'Other'),
-    ]
-
+    category = models.ForeignKey(
+        GalleryCategory,
+        on_delete=models.CASCADE,
+        related_name='items'
+    )
     title = models.CharField(max_length=150)
-    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default='other')
     image = CloudinaryField("image", blank=True, null=True)
     video = CloudinaryField("video", resource_type="video", blank=True, null=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        verbose_name = "Gallery Item"
-        verbose_name_plural = "Gallery Items"
         ordering = ['-uploaded_at']
 
     def __str__(self):
         return self.title
 
+    
+    
 
 # =======================
 # HOME PAGE
