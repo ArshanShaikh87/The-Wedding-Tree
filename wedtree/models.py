@@ -273,10 +273,13 @@ class GalleryCategory(models.Model):
 # =======================
 class Gallery(models.Model):
     category = models.ForeignKey(
-        GalleryCategory,
-        on_delete=models.CASCADE,
-        related_name='items'
-    )
+    GalleryCategory,
+    on_delete=models.SET_NULL,
+    null=True,
+    blank=True,
+    related_name='items'
+)
+
     title = models.CharField(max_length=150)
     image = CloudinaryField("image", blank=True, null=True)
     video = CloudinaryField("video", resource_type="video", blank=True, null=True)
