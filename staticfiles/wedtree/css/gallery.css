@@ -1,0 +1,440 @@
+/* ================================
+   The Wedding Tree — Gallery CSS
+   ================================ */
+
+:root {
+  --gold: #d4af37;
+  --black: #000;
+  --white: #fff;
+  --light: #faf7f5;
+  --muted: #6b6b6b;
+  --champagne: #8c7b6b;
+}
+
+/* container */
+.container.small {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+/* =========================
+   SECTION
+   ========================= */
+.gallery-section {
+  padding: 60px 5% 100px;
+  background: linear-gradient(180deg, var(--light), #ffffff 60%);
+  color: var(--black);
+  font-family: "Poppins", sans-serif;
+}
+
+.section-title {
+  font-size: 2.4rem;
+  color: var(--gold);
+  margin-bottom: 8px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.section-subtitle {
+  color: var(--champagne);
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 28px;
+  line-height: 1.6;
+}
+
+/* =========================
+   CATEGORY FILTERS
+   ========================= */
+.gallery-filters {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fff;
+  padding: 8px 16px;
+  border-radius: 40px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: #333;
+}
+
+.filter-btn.active {
+  background: var(--gold);
+  color: #000;
+  box-shadow: 0 6px 18px rgba(212, 175, 55, 0.15);
+}
+
+/* =========================
+   MEDIA FILTERS (Images / Videos)
+   ========================= */
+.media-filters {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 30px;
+}
+
+.media-btn {
+  background: none;
+  border: none;
+  padding: 6px 14px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.media-btn.active {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Mobile scroll */
+@media (max-width: 768px) {
+  .gallery-filters,
+  .media-filters {
+    overflow-x: auto;
+    justify-content: flex-start;
+    scrollbar-width: none;
+  }
+  .gallery-filters::-webkit-scrollbar,
+  .media-filters::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* =========================
+   GRID
+   ========================= */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+@media (max-width: 1024px) {
+  .gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   GALLERY ITEM
+   ========================= */
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+}
+
+/* =========================
+   MEDIA
+   ========================= */
+.media-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-image,
+.gallery-video {
+  width: 100%;
+  height: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #000;
+}
+
+/* Video indicator badge */
+.gallery-item[data-type="video"]::after {
+  content: "▶";
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  z-index: 3;
+}
+
+/* =========================
+   WATERMARK
+   ========================= */
+.watermark {
+  position: absolute;
+  bottom: 10px;
+  right: 12px;
+  color: rgba(255, 255, 255, 0.85);
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.18));
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* =========================
+   OVERLAY
+   ========================= */
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 14px;
+  gap: 10px;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 30%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.gallery-item:hover .overlay {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .overlay {
+    opacity: 1;
+  }
+  .gallery-item:hover {
+    transform: none;
+  }
+}
+
+.overlay-text h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.overlay-text .cat {
+  font-size: 0.85rem;
+  opacity: 0.9;
+}
+
+/* =========================
+   INLINE VIDEO CONTROLS (GRID)
+   ========================= */
+.inline-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* HARD HIDE CONTROLS ON IMAGES */
+.gallery-item[data-type="image"] .inline-controls {
+  display: none !important;
+}
+
+.btn {
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  min-width: 40px;
+  min-height: 40px;
+}
+
+.progress-bar {
+  width: 100px;
+  height: 6px;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+}
+
+/* =========================
+   LIGHTBOX
+   ========================= */
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 9999;
+  padding: 30px;
+}
+
+.lightbox.hidden {
+  display: none;
+}
+
+.lb-inner {
+  width: 100%;
+  max-width: 1200px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+/* =========================
+   LIGHTBOX MEDIA
+   ========================= */
+.lb-media {
+  max-width: 100%;
+  max-height: 75vh;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  transition: transform 0.25s ease;
+}
+
+/* =========================
+   LIGHTBOX CONTROLS
+   ========================= */
+.lb-controls {
+  display: none;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* IMAGE MODE */
+.lightbox.image-mode .lb-image {
+  cursor: zoom-in;
+}
+
+.lightbox.image-mode .lb-image-controls {
+  display: flex;
+}
+
+/* VIDEO MODE */
+.lightbox.video-mode .lb-video-controls {
+  display: flex;
+}
+
+/* Close button */
+.lb-close {
+  position: fixed;
+  top: 18px;
+  right: 24px;
+  background: transparent;
+  color: #fff;
+  border: none;
+  font-size: 34px;
+  cursor: pointer;
+}
+
+/* Caption */
+.lb-caption {
+  color: #eee;
+  text-align: center;
+  max-width: 90%;
+}
+
+/* =========================
+   ACCESSIBILITY
+   ========================= */
+.filter-btn:focus,
+.media-btn:focus,
+.btn:focus,
+.lb-close:focus {
+  outline: 2px solid rgba(212, 175, 55, 0.6);
+  outline-offset: 2px;
+}
+
+/* =========================
+   EMPTY STATE
+   ========================= */
+.no-items {
+  color: var(--muted);
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* =========================
+   MOBILE CONTROLS BOOST
+   ========================= */
+@media (max-width: 768px) {
+  .btn {
+    min-width: 52px;
+    min-height: 52px;
+    font-size: 18px;
+  }
+
+  .lb-controls {
+    gap: 16px;
+  }
+
+  .lb-close {
+    font-size: 38px;
+    top: 12px;
+    right: 16px;
+  }
+
+  .progress-bar {
+    width: 140px;
+  }
+}
+
+/* Wrapper that gets zoomed */
+.lb-media-wrap {
+  position: relative;
+  overflow: hidden; /* VERY IMPORTANT */
+  max-height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Image / video */
+.lb-media {
+  max-width: 100%;
+  max-height: 75vh;
+  transition: transform 0.25s ease;
+  z-index: 1;
+}
+
+/* Controls should ALWAYS stay above */
+.lb-controls {
+  position: relative;
+  z-index: 10; /* FIX */
+}
+
+/* Extra safety */
+.lb-close {
+  z-index: 20;
+}
