@@ -62,7 +62,7 @@ class GalleryAdmin(admin.ModelAdmin):
             'fields': ('category', 'title')
         }),
         ('Media', {
-            'fields': ('image', 'video_url'),
+            'fields': ('image', 'video'),
             'description': 'Upload image here. For video: upload to Cloudinary dashboard and paste the video URL.'
         }),
     )
