@@ -56,6 +56,17 @@ class GalleryAdmin(admin.ModelAdmin):
     list_filter = ('category',)
     search_fields = ('title',)
     ordering = ('-uploaded_at',)
+
+    fieldsets = (
+        (None, {
+            'fields': ('category', 'title')
+        }),
+        ('Media', {
+            'fields': ('image', 'video_url'),
+            'description': 'Upload image here. For video: upload to Cloudinary dashboard and paste the video URL.'
+        }),
+    )
+
     
 @admin.register(GalleryCategory)
 class GalleryCategoryAdmin(admin.ModelAdmin):
