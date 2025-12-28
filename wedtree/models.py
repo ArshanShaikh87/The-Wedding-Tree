@@ -274,7 +274,7 @@ class GalleryCategory(models.Model):
 class Gallery(models.Model):
     category = models.ForeignKey(
     GalleryCategory,
-    on_delete=models.SET_NULL,
+    on_delete=models.CASCADE,
     null=True,
     blank=True,
     related_name='items'
