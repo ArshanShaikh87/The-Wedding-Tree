@@ -357,16 +357,32 @@ document.addEventListener("DOMContentLoaded", () => {
         lbImage.src = src;
         lbImage.style.display = "block";
       } else {
+        // // VIDEO MODE
+        // lb.classList.add("video-mode");
+
+        // lbImage.style.display = "none";
+
+        // lbVideo.src = src;
+        // lbVideo.currentTime = 0;
+        // lbVideo.style.display = "block";
+        // lbVideo.pause();
+        // lbPlay.textContent = "▶";
+        // lbProgress.value = 0;
+
         // VIDEO MODE
         lb.classList.add("video-mode");
 
         lbImage.style.display = "none";
 
         lbVideo.src = src;
-        lbVideo.currentTime = 0;
+        lbVideo.load();
         lbVideo.style.display = "block";
-        lbVideo.pause();
-        lbPlay.textContent = "▶";
+
+        setTimeout(() => {
+        lbVideo.play().catch(() => {});
+        }, 100);
+
+        lbPlay.textContent = "⏸";
         lbProgress.value = 0;
       }
     });

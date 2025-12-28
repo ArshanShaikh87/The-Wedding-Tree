@@ -63,12 +63,12 @@ Crafted — Gallery | The Wedding Tree{% endblock %} {% block meta %}
           {% else %}
           <video
             class="gallery-video"
-            preload="metadata"
+            controls
             muted
             playsinline
-            controls
+            preload="metadata"
           >
-            <source src="{{ item.video.url }}" />
+          <source src="{{ item.video.url }}">
           </video>
           {% endif %}
 
