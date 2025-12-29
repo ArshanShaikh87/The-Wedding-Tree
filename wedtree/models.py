@@ -282,7 +282,7 @@ class Gallery(models.Model):
 
     title = models.CharField(max_length=150)
     image = CloudinaryField("image", blank=True, null=True)
-    video = models.URLField(
+    video = CloudinaryField(
         blank=True,
         null=True,
         help_text="Upload video to Cloudinary and paste the URL here"
