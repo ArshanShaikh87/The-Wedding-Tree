@@ -2,94 +2,187 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+
+    <!-- ✅ Viewport (accessibility safe) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Basic -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Author & Brand -->
+    <meta name="author" content="The Wedding Tree" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph Default -->
+    <meta property="og:site_name" content="The Wedding Tree" />
+    <meta property="og:type" content="website" />
+
     <title>{% block title %}The Wedding Tree{% endblock %}</title>
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- ================= Google Fonts ================= -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lato:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
 
+    <!-- ================= Icons ================= -->
+    <!-- ✅ Single, correct Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
 
+    <!-- ================= AOS ================= -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
 
-    <!-- Base CSS -->
-    <link rel="stylesheet" href="{% static 'wedtree/css/base.css' %}">
-    <link rel="stylesheet" href="{% static 'wedtree/css/home.css' %}">
-    <link rel="stylesheet" href="{% static 'wedtree/css/about.css' %}">
-    <link rel="stylesheet" href="{% static 'wedtree/css/services.css' %}">
-    <link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}">
-    <link rel="stylesheet" href="{% static 'wedtree/css/contact.css' %}">
+    <!-- ================= GLightbox CSS (FIXED) ================= -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"
+    />
 
-    <link rel="stylesheet" href="{% static 'wedtree/css/header-fix.css' %}">
+    <!-- ================= Base CSS ================= -->
+    <link rel="stylesheet" href="{% static 'wedtree/css/base.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/home.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/about.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/services.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/gallery.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/contact.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/header-fix.css' %}" />
+    <link rel="stylesheet" href="{% static 'wedtree/css/footer-fix.css' %}" />
 
     {% block extra_css %}{% endblock %}
+  </head>
 
-
-</head>
-
-<body>
-    <!-- Navbar -->
+  <body>
+    <!-- ================= Navbar ================= -->
     <header class="navbar">
-  <!-- ✅ Logo + Text -->
-<div class="logo">
-  <a href="{% url 'home' %}" class="logo-link">
-    <img src="{% static 'wedtree/images/logo.png' %}" alt="The Wedding Tree" class="logo-img">
-    <span class="logo-text">The <span> Wedding Tree</span></span>
-  </a>
-</div>
+      <div class="logo">
+        <a href="{% url 'home' %}" class="logo-link">
+          <img
+            src="{% static 'wedtree/images/logo.png' %}"
+            alt="The Wedding Tree"
+            class="logo-img"
+          />
+          <span class="logo-text">The Wedding Tree</span>
+        </a>
+      </div>
 
-    <nav>
-      <ul class="nav-links">
-        <li><a href="{% url 'home' %}">Home</a></li>
-        <li><a href="{% url 'about' %}">About</a></li>
-        <li><a href="{% url 'services' %}">Services</a></li>
-        <li><a href="{% url 'gallery' %}">Gallery</a></li>
-        <li><a href="{% url 'contact' %}">Contact</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li><a href="{% url 'gallery' %}">Gallery</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
 
-    <!-- Page Content -->
+    <!-- ================= Page Content ================= -->
     {% block content %}{% endblock %}
 
-    <!-- Footer -->
+    <!-- ================= Footer ================= -->
     <footer class="footer">
-        <div class="container">
-            <p>© 2025 The Wedding Tree. All rights reserved.</p>
+      <div class="footer-container">
+        <div class="footer-box">
+          <h3 class="footer-logo">The Wedding Tree</h3>
+          <p>
+            Crafting elegant weddings with timeless décor, seamless planning,
+            and unforgettable celebrations.
+          </p>
         </div>
+
+        <div class="footer-box">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'services' %}">Services</a></li>
+            <li><a href="{% url 'gallery' %}">Gallery</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-box">
+          <h4>Our Services</h4>
+          <ul>
+            <li>Wedding Planning</li>
+            <li>Luxury Décor</li>
+            <li>Invitations & Stationery</li>
+            <li>Venue Management</li>
+            <li>Event Coordination</li>
+          </ul>
+        </div>
+
+        <div class="footer-box">
+          <h4>Contact</h4>
+          <p><i class="fa-solid fa-location-dot"></i> Pune, Maharashtra</p>
+          <p>
+            <i class="fa-solid fa-phone"></i>
+            <a href="tel:+918788063968"> +91 87880 63968</a>
+          </p>
+          <p>
+            <i class="fa-solid fa-envelope"></i>
+            <a href="mailto:weddingtree09@gmail.com">
+              weddingtree09@gmail.com</a
+            >
+          </p>
+
+          <div class="social-links">
+            <a
+              href="https://www.instagram.com/thewedding_tree/"
+              target="_blank"
+              rel="noopener"
+            >
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.pinterest.com/" target="_blank" rel="noopener">
+              <i class="fa-brands fa-pinterest-p"></i>
+            </a>
+            <a href="https://wa.me/918788063968" target="_blank" rel="noopener">
+              <i class="fa-brands fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© {% now "Y" %} The Wedding Tree. All Rights Reserved.</p>
+      </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button id="scrollTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+    <!-- ================= Scroll To Top ================= -->
+    <button id="scrollTopBtn" aria-label="Scroll to top">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
 
-    <!-- JS -->
+    <!-- ================= JS ================= -->
     <script src="{% static 'wedtree/js/main.js' %}"></script>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>AOS.init({ duration: 1000, once: true });</script>
-<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true });
+    </script>
 
-<script>
-  // Image Lightbox
-  const lightboxImage = GLightbox({
-      selector: '.glightbox-image'
-  });
-
-  // Video Lightbox
-  const lightboxVideo = GLightbox({
-      selector: '.glightbox-video',
-      plyr: {
-          css: null,
-          js: null
-      }
-  });
-</script>
-
+    <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+    <script>
+      GLightbox({ selector: ".glightbox-image" });
+      GLightbox({ selector: ".glightbox-video" });
+    </script>
+    
 
     {% block extra_js %}{% endblock %}
-</body>
+  </body>
 </html>
