@@ -1,0 +1,157 @@
+ /* =========================
+   🌟 Base (Global) Styles
+   /* =========================  */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+  
+}
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;   /* ❌ right-left scroll band */
+  overflow-y: auto;     /* ✅ vertical scroll allowed */
+  touch-action: pan-y;  /* ❌ horizontal swipe + pinch zoom */
+}
+
+:root {
+  --gold: #D4AF37;
+  --black: #000000;
+  /* /* --white: #FFFFFF;  */
+   --white: #fff9f5;
+  --light-grey: #fff9f5;
+  --champagne: #8C7B6B;
+  --font-heading: 'Poppins', serif;
+  --font-body: 'Lato', sans-serif;
+}
+
+/* =========================
+   🌟 Global Font Styling
+   /* =========================  */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--white);
+  color: var(--black);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Poppins';
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.5px;
+}
+
+/* /* Paragraphs  */
+p {
+  font-family: 'Lato', sans-serif;
+  color: var(--black);
+}
+
+/* =========================
+   🌟 Navbar Styles
+   /* =========================  */
+
+.navbar {
+  width: 100%;
+  background-color: #000000;
+  padding: 20px 0;
+  top: 0;
+  z-index: 1000;
+  position: fixed;
+}
+
+.navbar .container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo a {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.logo span {
+  color: #D4AF37;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  color: #ffffff;
+  transition: 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #D4AF37;
+}
+
+/* /* 🌍 Responsive Navbar  */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    background: #000;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 200px;
+    padding: 15px;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    color: #D4AF37;
+    font-size: 1.5rem;
+  }
+}
+
+
+/* =========================
+   🌸 Footer Styles
+   /* =========================  */
+.footer {
+  background-color: var(--black);
+  color: var(--white);
+  text-align: center;
+  padding: 25px 10px;
+  font-family: 'Lato', sans-serif;
+  border-top: 1px solid var(--gold);
+}
+
+.footer p {
+  font-size: 0.9rem;
+  color: var(--light-grey);
+}
+
+/* =========================
+   📱 Responsive Navbar
+   /* =========================  */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+}
+
