@@ -1,159 +1,146 @@
 /* =========================
-   🌟 Responsive Header Fix
-   ========================= */
+   🌟 Hostinger Style Navbar Fix
+  ========================= */
 
-/* ✅ General Navbar */
+:root {
+  --nav-height: 80px; /* Navbar ki fixed height */
+}
+
+/* ✅ Navbar Container */
 .navbar {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 10px 5%;
+  align-items: center; /* Sab kuch vertically center karega */
+  padding: 0 4%;
+  height: var(--nav-height);
   background: var(--black);
   position: sticky;
   top: 0;
   z-index: 999;
+  transition: transform 0.3s ease;
 }
 
-/* ✅ Logo */
-.logo a {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 600;
-  font-size: 1.7rem;
-  text-decoration: none;
-  color: var(--white);
-}
-
-.logo span {
-  color: var(--gold);
-}
-
-/* ✅ Nav Links (Desktop) */
-.nav-links {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  transition: 0.3s ease;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--white);
-  font-family: 'Lato', sans-serif;
-  font-size: 1rem;
-}
-
-.nav-links a:hover {
-  color: var(--gold);
-}
-
-/* ✅ Hamburger Button (Hidden Desktop) */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: var(--gold);
-  font-size: 2.8rem;
-  cursor: pointer;
-}
-.menu-toggle i {
-  font-size: 1.8rem;
-  color: var(--gold);
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.menu-toggle i:hover {
-  color: var(--white);
-  transform: rotate(90deg);
-}
-/* ✅ Mobile Styles */
-@media (max-width: 768px) {
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 70%;
-    height: 100vh;
-    background: var(--black);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    transition: right 0.4s ease-in-out;
-    z-index: 999;
-  }
-
-  .nav-links.active {
-    right: 0;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .nav-links {
-  transition: right 0.35s ease-in-out, opacity 0.35s ease-in-out;
-  opacity: 0;
-}
-
-.nav-links.active {
-  opacity: 1;
-}
-
-}
-
-
-/* =========================
-   🎨 Logo Alignment Fix
-   ========================= */
+/* ✅ Logo Link (Flexbox Container) */
 .logo-link {
   display: flex;
-  align-items: center; /* centers image + text vertically */
-  gap: 12px;
+  align-items: center; /* Logo aur Text ko ek line mein laata hai */
+  gap: 10px;
   text-decoration: none;
-  line-height: 1; /* prevent text from shifting logo */
+  height: 100%; /* Parent ki height lega */
 }
 
+/* ✅ Logo Image (Text se double size) */
 .logo-img {
-  height: 65px; /* slightly larger for visual balance */
+  height: 74px;              /* 🔑 thoda bada */
   width: auto;
   object-fit: contain;
-  vertical-align: middle;
-  position: relative;
-  top: 8px; /* fine-tune baseline offset */
+  display: block;
+
+  /* 👇 optical centering */
+  transform: translateY(1px);
 }
 
+
+/* ✅ Logo Text */
 .logo-text {
   font-family: 'Poppins', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.8rem; /* Logo icon ke muqable lagbhag aadhi height */
   color: var(--white);
-  font-weight: 600;
+  font-weight: 700;
   display: flex;
   align-items: center;
+  line-height: 1; 
 }
 
 .logo-text span {
   color: var(--gold);
 }
 
-
-@media (max-width: 768px) {
-  .logo-img {
-    height: 50px;
-    top: 1px;
-  }
-
-  .logo-text {
-    font-size: 1.5rem;
-  }
+/* ✅ Hamburger Button (Perfectly Centered) */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 100%; /* Navbar ki height lega */
+  display: none; 
+  align-items: center; /* Icon ko center karega */
+  padding: 0;
 }
 
-@media (max-width: 480px) {
+.menu-toggle i {
+  font-size: 2rem;
+  color: var(--gold);
+}
+
+/* ✅ Mobile View (768px) */
+@media (max-width: 768px) {
+  .navbar {
+    height: 70px; /* Mobile par thoda chota header */
+    padding: 0 15px;
+  }
+
   .logo-img {
-    height: 45px;
+    height: 45px; /* Mobile par proportional size */
   }
 
   .logo-text {
-    font-size: 1.3rem;
+    font-size: 1.4rem; /* Icon ke hisab se text adjust kiya */
   }
+
+  .menu-toggle {
+    display: flex; /* Mobile par button dikhao */
+  }
+  .nav-links.active {
+    right: 0;
+    opacity: 1;
+    overflow-y: auto; /* Agar menu bada ho toh menu ke andar scroll chale */
+  }
+
+  /* Nav Links for Mobile */
+  .nav-links {
+    position: fixed;
+    top: 70px; /* Navbar ke thik niche se shuru hoga */
+    right: -100%;
+    width: 100%;
+    height: calc(100vh - 70px);
+    background: var(--black);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    transition: 0.4s ease-in-out;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+}
+/* =========================
+   FORCE LOGO ALIGN FIX
+   ========================= */
+header.navbar .logo-link {
+  align-items: center !important;
+}
+
+header.navbar .logo-img {
+  height: 64px !important;
+  position: static !important;
+  top: 0 !important;
+  margin: 0 !important;
+  transform: translateY(2px) !important;
+}
+
+header.navbar .logo-text {
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+header.navbar .menu-toggle {
+  align-items: center !important;
+}
+
+header.navbar .menu-toggle i {
+  line-height: 1 !important;
 }

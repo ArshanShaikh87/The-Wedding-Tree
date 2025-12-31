@@ -1,22 +1,21 @@
-// Shrink navbar on scroll
-window.addEventListener("scroll", function() {
-  const navbar = document.querySelector(".navbar");
-  if (window.scrollY > 50) {
-    navbar.style.backgroundColor = "#111";
-    navbar.style.padding = "10px 40px";
-  } else {
-    navbar.style.backgroundColor = "var(--black)";
-    navbar.style.padding = "20px 40px";
+const navbar = document.querySelector(".navbar");
+
+let lastScrollY = window.scrollY;
+
+window.addEventListener("scroll", () => {
+  const currentScrollY = window.scrollY;
+
+  // Scroll DOWN → hide header
+  if (currentScrollY > lastScrollY && currentScrollY > 80) {
+    navbar.classList.add("nav-hidden");
   }
+  // Scroll UP → show header
+  else {
+    navbar.classList.remove("nav-hidden");
+  }
+
+  lastScrollY = currentScrollY;
 });
-// const menuToggle = document.querySelector('.menu-toggle');
-// const navLinks = document.querySelector('.nav-links');
-
-// menuToggle?.addEventListener('click', () => {
-//   navLinks.classList.toggle('active');
-// });
-
-
 // =============================
 // 🌟 Mobile Menu Toggle + Click Outside Close
 // =============================
@@ -67,4 +66,60 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+
+// =========================
+// 🔝 Scroll To Top Button
+// =========================
+const scrollBtn = document.getElementById("scrollTopBtn");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 300) {
+    scrollBtn.classList.add("show");
+  } else {
+    scrollBtn.classList.remove("show");
+  }
+});
+
+scrollBtn.addEventListener("click", () => {
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const body = document.body;
+
+    // Check karein ki elements exist karte hain (Avoids "null" error)
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            
+            // Background scroll lock toggle
+            const isActive = navLinks.classList.contains('active');
+            if (isActive) {
+                body.style.overflow = 'hidden';
+            } else {
+                body.style.overflow = 'auto';
+            }
+
+            // Hamburger icon change (Bars to X)
+            const icon = menuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-xmark');
+        });
+
+        // Link click hone par menu band karein aur scroll on karein
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                body.style.overflow = 'auto';
+            });
+        });
+    }
+});
+
 });

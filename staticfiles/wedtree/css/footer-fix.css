@@ -99,7 +99,7 @@
 #scrollTopBtn {
   position: fixed;
   right: 25px;
-  bottom: 25px;
+  bottom: 85px;
   width: 46px;
   height: 46px;
   border-radius: 50%;
@@ -134,8 +134,8 @@
 /* Mobile */
 @media (max-width: 768px) {
   #scrollTopBtn {
-    right: 15px;
-    bottom: 15px;
+    right: 25px;
+    bottom: 85px;
     width: 42px;
     height: 42px;
   }
