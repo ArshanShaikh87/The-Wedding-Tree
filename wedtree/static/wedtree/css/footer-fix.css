@@ -135,7 +135,7 @@
 @media (max-width: 768px) {
   #scrollTopBtn {
     right: 25px;
-    bottom: 85px;
+    bottom: 85px !important;
     width: 42px;
     height: 42px;
   }
